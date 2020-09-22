@@ -2,6 +2,7 @@
 
 namespace OwowAgency\LaravelNotifications\Tests\Feature\Notifiables\Notifications;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Testing\TestResponse;
 use OwowAgency\LaravelNotifications\Tests\TestCase;
 use OwowAgency\LaravelNotifications\Tests\Support\Models\Notifiable;
@@ -30,21 +31,18 @@ class IndexTest extends TestCase
 
         $notifiable->notify(new Notification('hello'));
 
-        dd($notifiable->notifications);
-
         return [$notifiable];
     }
 
     /**
      * Makes a request.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Company  $company
+     * @param  \OwowAgency\LaravelNotifications\Tests\Support\Models\Notifiable  $notifiable
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
     private function makeRequest(Notifiable $notifiable): TestResponse
     {
-        return $this->json('GET', "$notifiable->id/notifications");
+        return $this->json('GET', "notifiables/$notifiable->id/notifications");
     }
 
     /**
@@ -63,5 +61,16 @@ class IndexTest extends TestCase
         }
 
         $this->assertJsonStructureSnapshot($response);
+    }
+
+    /**
+     * Define environment setup.
+     *
+     * @param  \Illuminate\Foundation\Application  $app
+     * @return void
+     */
+    protected function getEnvironmentSetUp($app)
+    {
+        Route::paginateNotifications('notifiables', Notifiable::class);
     }
 }

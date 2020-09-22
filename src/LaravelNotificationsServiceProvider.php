@@ -3,6 +3,7 @@
 namespace OwowAgency\LaravelNotifications;
 
 use Illuminate\Support\ServiceProvider;
+use OwowAgency\LaravelNotifications\Macros\RoutePaginateNotificationsMacro;
 
 class LaravelNotificationsServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,8 @@ class LaravelNotificationsServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
         $this->registerPublishPaths();
+
+        $this->registerMacros();
     }
 
     /**
@@ -28,5 +31,15 @@ class LaravelNotificationsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../config/notifications.php' => config_path('notifications.php'),
         ], 'notifications');
+    }
+
+    /**
+     * Register macros.
+     *
+     * @return void
+     */
+    protected function registerMacros(): void
+    {
+        RoutePaginateNotificationsMacro::register();
     }
 }
