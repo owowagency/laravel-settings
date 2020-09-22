@@ -1,6 +1,6 @@
 <?php
 
-namespace OwowAgency\LaravelResources;
+namespace OwowAgency\LaravelNotifications;
 
 use Illuminate\Support\ServiceProvider;
 

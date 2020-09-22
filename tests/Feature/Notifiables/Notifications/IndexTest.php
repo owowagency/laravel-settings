@@ -5,6 +5,7 @@ namespace OwowAgency\LaravelNotifications\Tests\Feature\Notifiables\Notification
 use Illuminate\Testing\TestResponse;
 use OwowAgency\LaravelNotifications\Tests\TestCase;
 use OwowAgency\LaravelNotifications\Tests\Support\Models\Notifiable;
+use OwowAgency\LaravelNotifications\Tests\Support\Notifications\Notification;
 
 class IndexTest extends TestCase
 {
@@ -26,6 +27,10 @@ class IndexTest extends TestCase
     private function prepare(): array
     {
         $notifiable = Notifiable::create();
+
+        $notifiable->notify(new Notification('hello'));
+
+        dd($notifiable->notifications);
 
         return [$notifiable];
     }
