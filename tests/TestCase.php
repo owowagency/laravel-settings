@@ -2,9 +2,22 @@
 
 namespace OwowAgency\LaravelNotifications\Tests;
 
-use Orchestra\Testbench\TestCase as BaseCase;
+use OwowAgency\Snapshots\MatchesSnapshots;
+use OwowAgency\LaravelTestResponse\TestResponse;
+use Orchestra\Testbench\TestCase as BaseTestCase;
 
-class TestCase extends BaseCase
+class TestCase extends BaseTestCase
 {
-    //
+    use MatchesSnapshots;
+
+    /**
+     * Create the test response instance from the given response.
+     *
+     * @param  \Illuminate\Http\Response  $response
+     * @return \Illuminate\Testing\TestResponse
+     */
+    protected function createTestResponse($response)
+    {
+        return TestResponse::fromBaseResponse($response);
+    }
 }
