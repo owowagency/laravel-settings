@@ -76,6 +76,33 @@ class IndexTest extends TestCase
         $this->assertResponse($response2, 403);
     }
 
+    /** @test */
+    public function user_can_index_own_notifications_custom_route(): void
+    {
+        // Instruct package to use custom routes.
+        Route::paginateNotifications('', User::class);
+        Route::paginateNotifications('players', User::class);
+        Route::prefix('custom')->group(fn() => Route::paginateNotifications('', User::class));
+        
+        [$user] = $this->prepare();
+
+        Gate::define('viewNotificationsOf', function (User $user, $target) {
+            return $user->is($target);
+        });
+
+        // User should be able to index own notifications from 'GET: /{id}/notifications'.
+        $response1 = $this->makeRequest($user, $user, '');
+        $this->assertResponse($response1);
+
+        // User should be able to index own notifications from 'GET: /players/{id}/notifications'.
+        $response2 = $this->makeRequest($user, $user, 'players');
+        $this->assertResponse($response2);
+
+        // User should be able to index own notifications from 'GET: /custom/{id}/notifications'.
+        $response3 = $this->makeRequest($user, $user, 'custom');
+        $this->assertResponse($response3);
+    }
+
     /**
      * Helper Methods
      * ========================================================================
@@ -100,11 +127,14 @@ class IndexTest extends TestCase
      *
      * @param  \OwowAgency\LaravelNotifications\Tests\Support\Models\User  $user
      * @param  \Illuminate\Notifications\Notifiable  $notifiable
+     * @param  string  $prefix
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    private function makeRequest(User $user, $notifiable): TestResponse
+    private function makeRequest(User $user, $notifiable, string $prefix = null): TestResponse
     {
-        $prefix = $notifiable instanceof User ? 'users' : 'notifiables';
+        if (is_null($prefix)) {
+            $prefix = $notifiable instanceof User ? 'users' : 'notifiables';
+        }
         
         return $this
             ->actingAs($user)
