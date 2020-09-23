@@ -1,26 +1,36 @@
-[
-    {
-        "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
-        "data": {
-            "message": "Hello user! #1"
+{
+    "current_page": 1,
+    "data": [
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #3"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T16:44:51.000000Z"
         },
-        "read_at": null,
-        "created_at": "2020-09-23T14:57:59.000000Z"
-    },
-    {
-        "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
-        "data": {
-            "message": "Hello user! #2"
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #2"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T16:43:51.000000Z"
         },
-        "read_at": null,
-        "created_at": "2020-09-23T14:57:59.000000Z"
-    },
-    {
-        "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
-        "data": {
-            "message": "Hello user! #3"
-        },
-        "read_at": null,
-        "created_at": "2020-09-23T14:57:59.000000Z"
-    }
-]
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #1"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T16:42:51.000000Z"
+        }
+    ],
+    "first_page_url": "http:\/\/localhost\/users\/1\/notifications?page=1",
+    "from": 1,
+    "next_page_url": null,
+    "path": "http:\/\/localhost\/users\/1\/notifications",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 3
+}

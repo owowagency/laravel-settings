@@ -17,10 +17,16 @@ class RoutePaginateNotificationsMacro
         Route::macro(
             'paginateNotifications',
             function (string $prefix, string $notifiableClass = null) {
-                Route::get("$prefix/{notifiable}/notifications", [
-                    'uses' => NotificationController::class . '@paginateForNotifiable',
-                    'model' => $notifiableClass,
-                ]);
+                if ($notifiableClass) {
+                    Route::get("$prefix/{notifiable}/notifications", [
+                        'uses' => NotificationController::class . '@paginateForNotifiable',
+                        'model' => $notifiableClass,
+                    ]);
+                } else {
+                    Route::get("$prefix", [
+                        'uses' => NotificationController::class . '@paginate',
+                    ]);
+                }
             },
         );
     }

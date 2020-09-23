@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Route;
 use OwowAgency\LaravelNotifications\Tests\TestCase;
 use OwowAgency\LaravelNotifications\Tests\Support\Models\User;
 use OwowAgency\LaravelNotifications\Tests\Support\Models\Notifiable;
-use OwowAgency\LaravelNotifications\Tests\Support\Notifications\Notification;
 
 class IndexTest extends TestCase
 {
@@ -18,8 +17,10 @@ class IndexTest extends TestCase
         [$user, $notifiable] = $this->prepare();
 
         // Allow user to index notifiable's notifications.
-        Gate::define('viewNotificationsOf', function ($user, $notifiable) {
-            return true;
+        Gate::define('viewNotificationsOf', function (User $user, $target) use ($notifiable) {
+            // Only return true if the `authorize` method is called with the correct
+            // Notifiable instance.
+            return $target->is($notifiable);
         });
 
         $response = $this->makeRequest($user, $notifiable);
@@ -33,8 +34,8 @@ class IndexTest extends TestCase
         [$user, $notifiable] = $this->prepare();
 
         // Disallow user to index notifiable's notifications.
-        Gate::define('viewNotificationsOf', function ($user, $notifiable) {
-            return false;
+        Gate::define('viewNotificationsOf', function (User $user, $target) use ($notifiable) {
+            return ! $target->is($notifiable);
         });
 
         $response = $this->makeRequest($user, $notifiable);
@@ -60,7 +61,9 @@ class IndexTest extends TestCase
         [$user, $notifiable] = $this->prepare();
 
         // Allow user to index own notifications.
-        Gate::define('viewNotificationsOf', function ($user, $target) {
+        Gate::define('viewNotificationsOf', function (User $user, $target) {
+            // Only return true if the `authorize` method is called with the correct
+            // User instance.
             return $user->is($target);
         });
 
@@ -89,18 +92,7 @@ class IndexTest extends TestCase
         Route::paginateNotifications('notifiables', Notifiable::class);
         Route::paginateNotifications('users', User::class);
         
-        $user = User::create();
-
-        $notifiable = Notifiable::create();
-
-        // Create notifications for user and notifiable.
-        for ($i = 1; $i <= 3; $i++) {
-            $user->notify(new Notification("Hello user! #$i"));
-
-            $notifiable->notify(new Notification("Hello notifiable! #$i"));
-        }
-
-        return [$user, $notifiable];
+        return $this->prepareNotifications();
     }
 
     /**
@@ -117,23 +109,5 @@ class IndexTest extends TestCase
         return $this
             ->actingAs($user)
             ->json('GET', "$prefix/$notifiable->id/notifications");
-    }
-
-    /**
-     * Asserts a response.
-     *
-     * @param  \Illuminate\Foundation\Testing\TestResponse  $response
-     * @param  int  $status
-     * @return void
-     */
-    private function assertResponse(TestResponse $response, int $status = 200): void
-    {
-        $response->assertStatus($status);
-
-        if ($status !== 200) {
-            return;
-        }
-
-        $this->assertJsonStructureSnapshot($response);
     }
 }

@@ -5,6 +5,8 @@ namespace OwowAgency\LaravelNotifications\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\AbstractPaginator;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use OwowAgency\LaravelNotifications\Resources\NotificationResource;
@@ -14,9 +16,24 @@ class NotificationController extends Controller
     use AuthorizesRequests;
 
     /**
-     * Paginate notifications that belongs to the notifiable.
+     * Paginate all notifications.
      *
      * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function paginate(): JsonResponse
+    {
+        $this->authorize('viewAny', DatabaseNotification::class);
+
+        $notifications = DatabaseNotification::latest()->simplePaginate();
+
+        return $this->createPaginatedResponse($notifications);
+    }
+
+    /**
+     * Paginate notifications that belongs to the notifiable.
+     *
+     * @param  string|\Illuminate\Database\Eloquent\Model $notifiable
      * @return \Illuminate\Http\JsonResponse
      */
     public function paginateForNotifiable($notifiable): JsonResponse
@@ -25,12 +42,16 @@ class NotificationController extends Controller
 
         $this->authorize('viewNotificationsOf', $notifiable);
 
-        $notifications = $notifiable->notifications()->latest()->paginate();
+        $notifications = $notifiable->notifications()->latest()->simplePaginate();
 
-        $resources = NotificationResource::collection($notifications);
+        return $this->createPaginatedResponse($notifications);
 
-        return new JsonResponse($resources);
     }
+
+    /**
+     * Helper Methods
+     * ========================================================================
+     */
 
     /**
      * Get the model instance that should be binded to the route. This function
@@ -64,5 +85,24 @@ class NotificationController extends Controller
         }
 
         return $modelInstance;
+    }
+
+    /**
+     * Create a paginated JSON response from the given paginator and resource class.
+     *
+     * @param  \Illuminate\Pagination\AbstractPaginator  $paginator
+     * @param  string  $resourceClass
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function createPaginatedResponse(
+        AbstractPaginator $paginator,
+        string $resourceClass = NotificationResource::class
+    ): JsonResponse
+    {
+        $resources = $resourceClass::collection($paginator);
+
+        $paginator = $paginator->setCollection($resources->collection);
+
+        return new JsonResponse($paginator);
     }
 }
