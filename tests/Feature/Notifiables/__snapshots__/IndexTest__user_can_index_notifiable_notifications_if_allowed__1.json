@@ -5,7 +5,7 @@
             "message": "Hello 1"
         },
         "read_at": null,
-        "created_at": "2020-09-23T14:22:47.000000Z"
+        "created_at": "2020-09-23T14:38:06.000000Z"
     },
     {
         "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
@@ -13,7 +13,7 @@
             "message": "Hello 2"
         },
         "read_at": null,
-        "created_at": "2020-09-23T14:22:47.000000Z"
+        "created_at": "2020-09-23T14:38:06.000000Z"
     },
     {
         "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
@@ -21,6 +21,6 @@
             "message": "Hello 3"
         },
         "read_at": null,
-        "created_at": "2020-09-23T14:22:47.000000Z"
+        "created_at": "2020-09-23T14:38:06.000000Z"
     }
 ]

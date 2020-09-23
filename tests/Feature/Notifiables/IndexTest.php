@@ -1,6 +1,6 @@
 <?php
 
-namespace OwowAgency\LaravelNotifications\Tests\Feature\Notifiables\Notifications;
+namespace OwowAgency\LaravelNotifications\Tests\Feature\Notifiables;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Testing\TestResponse;
@@ -13,11 +13,12 @@ use OwowAgency\LaravelNotifications\Tests\Support\Notifications\Notification;
 class IndexTest extends TestCase
 {
     /** @test */
-    public function notifiable_can_index_own_notifications(): void
+    public function user_can_index_notifiable_notifications_if_allowed(): void
     {
         [$user, $notifiable] = $this->prepare();
 
-        Gate::define('viewNotificationsOf', function ($user, $target) {
+        // Allow user to index notifiable's notifications.
+        Gate::define('viewNotificationsOf', function ($user, $notifiable) {
             return true;
         });
 
@@ -27,14 +28,36 @@ class IndexTest extends TestCase
     }
 
     /** @test */
-    public function notifiable_cant_index_others_notifications(): void
+    public function user_cant_index_notifiable_notifications_if_disallowed(): void
     {
         [$user, $notifiable] = $this->prepare();
+
+        // Disallow user to index notifiable's notifications.
+        Gate::define('viewNotificationsOf', function ($user, $notifiable) {
+            return false;
+        });
 
         $response = $this->makeRequest($user, $notifiable);
 
         $this->assertResponse($response, 403);
     }
+
+    /** @test */
+    public function user_cant_index_notifiable_notifications_if_no_policy(): void
+    {
+        [$user, $notifiable] = $this->prepare();
+
+        // Do not define policy.
+
+        $response = $this->makeRequest($user, $notifiable);
+
+        $this->assertResponse($response, 403);
+    }
+
+    /**
+     * Helper Methods
+     * ========================================================================
+     */
 
     /**
      * Prepares for tests.
