@@ -1,0 +1,60 @@
+{
+    "current_page": 1,
+    "data": [
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #3"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T17:39:22.000000Z"
+        },
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello notifiable! #3"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T17:39:22.000000Z"
+        },
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #2"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T17:38:22.000000Z"
+        },
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello notifiable! #2"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T17:38:22.000000Z"
+        },
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #1"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T17:37:22.000000Z"
+        },
+        {
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello notifiable! #1"
+            },
+            "read_at": null,
+            "created_at": "2020-09-23T17:37:22.000000Z"
+        }
+    ],
+    "first_page_url": "http:\/\/localhost\/notifs?page=1",
+    "from": 1,
+    "next_page_url": null,
+    "path": "http:\/\/localhost\/notifs",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 6
+}
