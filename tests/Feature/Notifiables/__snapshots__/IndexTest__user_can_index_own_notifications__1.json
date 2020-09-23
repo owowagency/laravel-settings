@@ -2,7 +2,7 @@
     {
         "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
         "data": {
-            "message": "Hello notifiable! #1"
+            "message": "Hello user! #1"
         },
         "read_at": null,
         "created_at": "2020-09-23T14:57:59.000000Z"
@@ -10,7 +10,7 @@
     {
         "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
         "data": {
-            "message": "Hello notifiable! #2"
+            "message": "Hello user! #2"
         },
         "read_at": null,
         "created_at": "2020-09-23T14:57:59.000000Z"
@@ -18,7 +18,7 @@
     {
         "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
         "data": {
-            "message": "Hello notifiable! #3"
+            "message": "Hello user! #3"
         },
         "read_at": null,
         "created_at": "2020-09-23T14:57:59.000000Z"

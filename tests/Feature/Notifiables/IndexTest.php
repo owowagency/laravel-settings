@@ -54,6 +54,25 @@ class IndexTest extends TestCase
         $this->assertResponse($response, 403);
     }
 
+    /** @test */
+    public function user_can_index_own_notifications(): void
+    {
+        [$user, $notifiable] = $this->prepare();
+
+        // Allow user to index own notifications.
+        Gate::define('viewNotificationsOf', function ($user, $target) {
+            return $user->is($target);
+        });
+
+        // User should be able to index own notifications.
+        $response1 = $this->makeRequest($user, $user);
+        $this->assertResponse($response1);
+
+        // User should not be able to index notifiable's notifications.
+        $response2 = $this->makeRequest($user, $notifiable);
+        $this->assertResponse($response2, 403);
+    }
+
     /**
      * Helper Methods
      * ========================================================================
@@ -66,15 +85,19 @@ class IndexTest extends TestCase
      */
     private function prepare(): array
     {
-        // Prepare the API endpoint (route).
+        // Prepare the API endpoints (routes).
         Route::paginateNotifications('notifiables', Notifiable::class);
+        Route::paginateNotifications('users', User::class);
         
         $user = User::create();
 
         $notifiable = Notifiable::create();
 
-        for ($i = 1; $i <= 3; $i++) { 
-            $notifiable->notify(new Notification("Hello $i"));
+        // Create notifications for user and notifiable.
+        for ($i = 1; $i <= 3; $i++) {
+            $user->notify(new Notification("Hello user! #$i"));
+
+            $notifiable->notify(new Notification("Hello notifiable! #$i"));
         }
 
         return [$user, $notifiable];
@@ -84,14 +107,16 @@ class IndexTest extends TestCase
      * Makes a request.
      *
      * @param  \OwowAgency\LaravelNotifications\Tests\Support\Models\User  $user
-     * @param  \OwowAgency\LaravelNotifications\Tests\Support\Models\Notifiable  $notifiable
+     * @param  \Illuminate\Notifications\Notifiable  $notifiable
      * @return \Illuminate\Foundation\Testing\TestResponse
      */
-    private function makeRequest(User $user, Notifiable $notifiable): TestResponse
+    private function makeRequest(User $user, $notifiable): TestResponse
     {
+        $prefix = $notifiable instanceof User ? 'users' : 'notifiables';
+        
         return $this
             ->actingAs($user)
-            ->json('GET', "notifiables/$notifiable->id/notifications");
+            ->json('GET', "$prefix/$notifiable->id/notifications");
     }
 
     /**
