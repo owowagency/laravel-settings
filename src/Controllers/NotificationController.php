@@ -45,7 +45,38 @@ class NotificationController extends Controller
         $notifications = $notifiable->notifications()->latest()->simplePaginate();
 
         return $this->createPaginatedResponse($notifications);
+    }
 
+    /**
+     * Count notifications that belongs to the notifiable.
+     *
+     * @param  string|\Illuminate\Database\Eloquent\Model $notifiable
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function countForNotifiable($notifiable): JsonResponse
+    {
+        $notifiable = $this->getModelInstance($notifiable);
+
+        $this->authorize('viewNotificationsCountOf', $notifiable);
+
+        // Get the count of read, unread, and all notifications.
+        $notifsArray = $notifiable
+            ->notifications()
+            ->selectRaw('IF(read_at IS NULL, "unread", "read") as status')
+            ->selectRaw('COUNT(*) as count')
+            ->groupByRaw('status WITH ROLLUP')
+            ->reorder()
+            ->get()
+            ->toArray();
+
+        // Map the results to a flat associative array.
+        foreach ($notifsArray as $notifs) {
+            $status = $notifs['status'] ?? 'all';
+
+            $data[$status] = $notifs['count'];
+        }
+
+        return new JsonResponse($data);
     }
 
     /**
