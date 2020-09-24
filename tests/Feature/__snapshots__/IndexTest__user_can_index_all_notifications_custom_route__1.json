@@ -2,59 +2,101 @@
     "current_page": 1,
     "data": [
         {
+            "id": "9effb850-a189-408d-8a49-7adcbfaeb405",
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #5"
+            },
+            "read_at": "2020-09-24 08:37:17",
+            "created_at": "2020-09-24T08:36:17.000000Z"
+        },
+        {
+            "id": "d1b5f2e6-9c57-4d0a-bf56-4e3f2d9da350",
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello notifiable! #5"
+            },
+            "read_at": "2020-09-24 08:37:17",
+            "created_at": "2020-09-24T08:36:17.000000Z"
+        },
+        {
+            "id": "1b99e796-da09-4f84-9418-e2c2977f5c19",
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #4"
+            },
+            "read_at": "2020-09-24 08:37:17",
+            "created_at": "2020-09-24T08:35:17.000000Z"
+        },
+        {
+            "id": "ecd24209-901f-4cf3-854e-f7fa12fa03ef",
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello notifiable! #4"
+            },
+            "read_at": "2020-09-24 08:37:17",
+            "created_at": "2020-09-24T08:35:17.000000Z"
+        },
+        {
+            "id": "91b9d2da-de5a-43df-95be-5a27cecb5a2a",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #3"
             },
             "read_at": null,
-            "created_at": "2020-09-23T17:35:57.000000Z"
+            "created_at": "2020-09-24T08:34:17.000000Z"
         },
         {
+            "id": "5ce039b7-eb83-471e-870f-02b7778f7765",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello notifiable! #3"
             },
             "read_at": null,
-            "created_at": "2020-09-23T17:35:57.000000Z"
+            "created_at": "2020-09-24T08:34:17.000000Z"
         },
         {
+            "id": "78fe154f-16fd-4cc9-b28c-5eb54f0d1766",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #2"
             },
             "read_at": null,
-            "created_at": "2020-09-23T17:34:57.000000Z"
+            "created_at": "2020-09-24T08:33:17.000000Z"
         },
         {
+            "id": "41825b42-bbd9-44d7-9666-ea36cc10ff04",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello notifiable! #2"
             },
             "read_at": null,
-            "created_at": "2020-09-23T17:34:57.000000Z"
+            "created_at": "2020-09-24T08:33:17.000000Z"
         },
         {
+            "id": "a06110c5-94f4-4ca6-94b3-1ed7ccb35abb",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #1"
             },
             "read_at": null,
-            "created_at": "2020-09-23T17:33:57.000000Z"
+            "created_at": "2020-09-24T08:32:17.000000Z"
         },
         {
+            "id": "20c3a87c-29b0-43ba-b57d-974681ddcf8f",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello notifiable! #1"
             },
             "read_at": null,
-            "created_at": "2020-09-23T17:33:57.000000Z"
+            "created_at": "2020-09-24T08:32:17.000000Z"
         }
     ],
-    "first_page_url": "http:\/\/localhost\/notifs?page=1",
+    "first_page_url": "http:\/\/localhost?page=1",
     "from": 1,
     "next_page_url": null,
-    "path": "http:\/\/localhost\/notifs",
+    "path": "http:\/\/localhost",
     "per_page": 15,
     "prev_page_url": null,
-    "to": 6
+    "to": 10
 }

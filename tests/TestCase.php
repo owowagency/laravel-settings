@@ -72,13 +72,17 @@ abstract class TestCase extends BaseTestCase
         $notifiable = Notifiable::create();
 
         // Create notifications for user and notifiable.
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 5; $i++) {
             $user->notify(new Notification("Hello user! #$i"));
 
             $notifiable->notify(new Notification("Hello notifiable! #$i"));
 
             $this->travel(1)->minutes();
         }
+
+        // Mark some notifications as read.
+        $user->unreadNotifications()->take(2)->update(['read_at' => now()]);
+        $notifiable->unreadNotifications()->take(2)->update(['read_at' => now()]);
 
         return [$user, $notifiable];
     }
