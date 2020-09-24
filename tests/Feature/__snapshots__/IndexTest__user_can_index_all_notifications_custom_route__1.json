@@ -2,94 +2,94 @@
     "current_page": 1,
     "data": [
         {
-            "id": "9effb850-a189-408d-8a49-7adcbfaeb405",
-            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
-            "data": {
-                "message": "Hello user! #5"
-            },
-            "read_at": "2020-09-24 08:37:17",
-            "created_at": "2020-09-24T08:36:17.000000Z"
-        },
-        {
-            "id": "d1b5f2e6-9c57-4d0a-bf56-4e3f2d9da350",
+            "id": "520fd576-01a0-4946-a2bc-90b9954ebb9b",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello notifiable! #5"
             },
-            "read_at": "2020-09-24 08:37:17",
-            "created_at": "2020-09-24T08:36:17.000000Z"
+            "read_at": "2020-09-24 11:45:03",
+            "created_at": "2020-09-24T11:44:03.000000Z"
         },
         {
-            "id": "1b99e796-da09-4f84-9418-e2c2977f5c19",
+            "id": "fd9d8764-ae37-46a8-bd67-d4c1564feb73",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
-                "message": "Hello user! #4"
+                "message": "Hello user! #5"
             },
-            "read_at": "2020-09-24 08:37:17",
-            "created_at": "2020-09-24T08:35:17.000000Z"
+            "read_at": "2020-09-24 11:45:03",
+            "created_at": "2020-09-24T11:44:03.000000Z"
         },
         {
-            "id": "ecd24209-901f-4cf3-854e-f7fa12fa03ef",
+            "id": "dfa61600-b2e7-41e7-9508-85b922f99a82",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello notifiable! #4"
             },
-            "read_at": "2020-09-24 08:37:17",
-            "created_at": "2020-09-24T08:35:17.000000Z"
+            "read_at": "2020-09-24 11:45:03",
+            "created_at": "2020-09-24T11:43:03.000000Z"
         },
         {
-            "id": "91b9d2da-de5a-43df-95be-5a27cecb5a2a",
+            "id": "ed010175-a6eb-4284-be64-6f354f388472",
+            "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
+            "data": {
+                "message": "Hello user! #4"
+            },
+            "read_at": null,
+            "created_at": "2020-09-24T11:43:03.000000Z"
+        },
+        {
+            "id": "34feb901-a758-4103-903a-56c53b875706",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #3"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:34:17.000000Z"
+            "created_at": "2020-09-24T11:42:03.000000Z"
         },
         {
-            "id": "5ce039b7-eb83-471e-870f-02b7778f7765",
+            "id": "3f7f1dd5-f95c-4cd5-9e94-d868e3bc7343",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello notifiable! #3"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:34:17.000000Z"
+            "created_at": "2020-09-24T11:42:03.000000Z"
         },
         {
-            "id": "78fe154f-16fd-4cc9-b28c-5eb54f0d1766",
+            "id": "dc5b8ea2-4be3-48ed-8457-8d52812dbbb9",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #2"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:33:17.000000Z"
+            "created_at": "2020-09-24T11:41:03.000000Z"
         },
         {
-            "id": "41825b42-bbd9-44d7-9666-ea36cc10ff04",
+            "id": "dd72bc26-dbb0-4e44-b7cd-c2d813c7270f",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello notifiable! #2"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:33:17.000000Z"
+            "created_at": "2020-09-24T11:41:03.000000Z"
         },
         {
-            "id": "a06110c5-94f4-4ca6-94b3-1ed7ccb35abb",
+            "id": "7bb9eee9-83bd-44a5-8b85-aea5bd7aa5a8",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #1"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:32:17.000000Z"
+            "created_at": "2020-09-24T11:40:03.000000Z"
         },
         {
-            "id": "20c3a87c-29b0-43ba-b57d-974681ddcf8f",
+            "id": "de6df4ec-fcd7-4df8-9cd6-73354bdf34f6",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello notifiable! #1"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:32:17.000000Z"
+            "created_at": "2020-09-24T11:40:03.000000Z"
         }
     ],
     "first_page_url": "http:\/\/localhost?page=1",

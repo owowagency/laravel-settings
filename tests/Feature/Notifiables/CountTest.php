@@ -12,20 +12,54 @@ use OwowAgency\LaravelNotifications\Tests\Support\Models\Notifiable;
 class CountTest extends TestCase
 {
     /** @test */
-    public function user_can_count_notifiable_notifications_if_allowed(): void
+    public function user_can_count_own_notifications_if_allowed(): void
     {
         [$user, $notifiable] = $this->prepare();
 
-        // Allow user to view notifiable's notifications count.
+        // Allow user to view own notifications count.
+        Gate::define('viewNotificationsCountOf', function (User $user, $target) {
+            // Only return true if the `authorize` method is called with the correct
+            // User instance.
+            return $target->is($user);
+        });
+
+        // User should be able to count own notifications.
+        $response1 = $this->makeRequest($user, $user);
+        $this->assertResponse($response1);
+
+        // User should not be able to count notifiable's notifications.
+        $response2 = $this->makeRequest($user, $notifiable);
+        $this->assertResponse($response2, 403);
+    }
+
+    /** @test */
+    public function user_can_count_notifiable_notifications_custom_route(): void
+    {
+        // Instruct package to use custom routes.
+        Route::countNotifications('', Notifiable::class);
+        Route::countNotifications('players', Notifiable::class);
+        Route::prefix('custom')->group(fn() => Route::countNotifications('', Notifiable::class));
+        
+        [$user, $notifiable] = $this->prepare();
+
+        // Allow user to count notifiable's notifications.
         Gate::define('viewNotificationsCountOf', function (User $user, $target) use ($notifiable) {
             // Only return true if the `authorize` method is called with the correct
             // Notifiable instance.
             return $target->is($notifiable);
         });
 
-        $response = $this->makeRequest($user, $notifiable);
+        // User should be able to count notifiable's notifications from 'GET: /{id}/notifications/count'.
+        $response1 = $this->makeRequest($user, $notifiable, '');
+        $this->assertResponse($response1);
 
-        $this->assertResponse($response);
+        // User should be able to count notifiable's notifications from 'GET: /players/{id}/notifications/count'.
+        $response2 = $this->makeRequest($user, $notifiable, 'players');
+        $this->assertResponse($response2);
+
+        // User should be able to count notifiable's notifications from 'GET: /custom/{id}/notifications/count'.
+        $response3 = $this->makeRequest($user, $notifiable, 'custom');
+        $this->assertResponse($response3);
     }
 
     /**
@@ -64,5 +98,24 @@ class CountTest extends TestCase
         return $this
             ->actingAs($user)
             ->json('GET', "$prefix/$notifiable->id/notifications/count");
+    }
+
+    /**
+     * Asserts a response.
+     *
+     * @param  \Illuminate\Foundation\Testing\TestResponse  $response
+     * @param  int  $status
+     * @return void
+     */
+    protected function assertResponse(TestResponse $response, int $status = 200): void
+    {
+        $response->assertStatus($status);
+
+        if ($status !== 200) {
+            return;
+        }
+
+        // We want to strictly compare the counts with previous snapshot.
+        $this->assertMatchesJsonSnapshot($response->getContent());
     }
 }

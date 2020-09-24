@@ -65,7 +65,7 @@ class NotificationController extends Controller
             ->selectRaw('IF(read_at IS NULL, "unread", "read") as status')
             ->selectRaw('COUNT(*) as count')
             ->groupByRaw('status WITH ROLLUP')
-            ->reorder()
+            ->reorder() // `reorder` is needed to clear the default orderBy in `notifications()`.
             ->get()
             ->toArray();
 

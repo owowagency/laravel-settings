@@ -81,7 +81,7 @@ abstract class TestCase extends BaseTestCase
         }
 
         // Mark some notifications as read.
-        $user->unreadNotifications()->take(2)->update(['read_at' => now()]);
+        $user->unreadNotifications()->take(1)->update(['read_at' => now()]);
         $notifiable->unreadNotifications()->take(2)->update(['read_at' => now()]);
 
         return [$user, $notifiable];

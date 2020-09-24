@@ -2,49 +2,49 @@
     "current_page": 1,
     "data": [
         {
-            "id": "e238af77-699b-4cf5-9a1b-c83e4dea04a7",
+            "id": "6142028c-564e-42fa-9abd-66f0b031d69c",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #5"
             },
-            "read_at": "2020-09-24 08:37:18",
-            "created_at": "2020-09-24T08:36:18.000000Z"
+            "read_at": "2020-09-24 11:47:31",
+            "created_at": "2020-09-24T11:46:31.000000Z"
         },
         {
-            "id": "da00a996-417a-4ddc-872c-5a60388d94ae",
+            "id": "1e66f969-712e-413f-84c2-d6e0316adb1d",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #4"
             },
-            "read_at": "2020-09-24 08:37:18",
-            "created_at": "2020-09-24T08:35:18.000000Z"
+            "read_at": null,
+            "created_at": "2020-09-24T11:45:31.000000Z"
         },
         {
-            "id": "b3db10f2-2d0b-4bde-846a-bcf6a0d03584",
+            "id": "368f920a-13fb-4c17-ab1e-e5c5cfb360ed",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #3"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:34:18.000000Z"
+            "created_at": "2020-09-24T11:44:31.000000Z"
         },
         {
-            "id": "bd92dcbd-914f-448c-b6e8-ad3f34b0ac95",
+            "id": "19006fa3-8e2f-41d6-81bb-d677b5a564c4",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #2"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:33:18.000000Z"
+            "created_at": "2020-09-24T11:43:31.000000Z"
         },
         {
-            "id": "0a6ad465-2c84-43cb-83ce-d546db5889bc",
+            "id": "5386eeb5-c180-4af2-b540-549a18861977",
             "type": "OwowAgency\\LaravelNotifications\\Tests\\Support\\Notifications\\Notification",
             "data": {
                 "message": "Hello user! #1"
             },
             "read_at": null,
-            "created_at": "2020-09-24T08:32:18.000000Z"
+            "created_at": "2020-09-24T11:42:31.000000Z"
         }
     ],
     "first_page_url": "http:\/\/localhost\/users\/1\/notifications?page=1",
