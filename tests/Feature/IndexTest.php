@@ -76,7 +76,7 @@ class IndexTest extends TestCase
     /**
      * Makes a request.
      *
-     * @param  \OwowAgency\LaravelNotifications\Tests\Support\Models\User  $user
+     * @param  \OwowAgency\LaravelNotifications\Tests\Support\Models\User|null  $user
      * @param  string  $route
      * @return \Illuminate\Foundation\Testing\TestResponse
      */

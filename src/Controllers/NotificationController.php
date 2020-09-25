@@ -81,7 +81,7 @@ class NotificationController extends Controller
         $modelInstance = (new $modelClass)->resolveRouteBinding($value);
 
         if (! $modelInstance) {
-            throw new ModelNotFoundException($modelInstance, $value);
+            throw (new ModelNotFoundException)->setModel($modelClass, $value);
         }
 
         return $modelInstance;

@@ -11,7 +11,7 @@ class CreateNotifiablesTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('notifiables', function (Blueprint $table) {
             $table->increments('id');
@@ -24,7 +24,7 @@ class CreateNotifiablesTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('notifiables');
     }
