@@ -5,6 +5,7 @@ namespace OwowAgency\LaravelNotifications\Tests;
 use OwowAgency\Snapshots\MatchesSnapshots;
 use OwowAgency\LaravelTestResponse\TestResponse;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithTime;
 use OwowAgency\LaravelNotifications\Tests\Support\Models\User;
 use OwowAgency\LaravelNotifications\Tests\Support\Models\Notifiable;
@@ -13,7 +14,7 @@ use OwowAgency\LaravelNotifications\Tests\Support\Notifications\Notification;
 
 abstract class TestCase extends BaseTestCase
 {
-    use InteractsWithTime, MatchesSnapshots;
+    use InteractsWithTime, MatchesSnapshots, RefreshDatabase;
 
     /**
      * Setup the test environment.
@@ -74,9 +75,9 @@ abstract class TestCase extends BaseTestCase
         // Create notifications for user and notifiable.
         for ($i = 1; $i <= 5; $i++) {
             $user->notify(new Notification("Hello user! #$i"));
+            $this->travel(1)->minutes();
 
             $notifiable->notify(new Notification("Hello notifiable! #$i"));
-
             $this->travel(1)->minutes();
         }
 
