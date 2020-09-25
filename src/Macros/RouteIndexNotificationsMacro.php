@@ -5,7 +5,7 @@ namespace OwowAgency\LaravelNotifications\Macros;
 use Illuminate\Support\Facades\Route;
 use OwowAgency\LaravelNotifications\Controllers\NotificationController;
 
-class RoutePaginateNotificationsMacro
+class RouteIndexNotificationsMacro
 {
     /**
      * Register the macro.
@@ -15,16 +15,16 @@ class RoutePaginateNotificationsMacro
     public static function register(): void
     {
         Route::macro(
-            'paginateNotifications',
+            'indexNotifications',
             function (string $prefix, string $notifiableClass = null) {
                 if ($notifiableClass) {
                     Route::get("$prefix/{notifiable}/notifications", [
-                        'uses' => NotificationController::class . '@paginateForNotifiable',
+                        'uses' => NotificationController::class . '@indexForNotifiable',
                         'model' => $notifiableClass,
                     ]);
                 } else {
                     Route::get("$prefix", [
-                        'uses' => NotificationController::class . '@paginate',
+                        'uses' => NotificationController::class . '@index',
                     ]);
                 }
             },

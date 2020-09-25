@@ -24,11 +24,11 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
 
-        // Run the service providers' migrations.
-        $this->artisan('migrate:fresh');
+        // Run the package's migrations.
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         // Run the tests' migrations.
-        $this->loadMigrationsFrom(__DIR__ . '/Support/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/Support/database/migrations');
     }
 
     /**

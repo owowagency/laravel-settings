@@ -9,34 +9,36 @@ use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use OwowAgency\LaravelNotifications\Resources\NotificationResource;
 
 class NotificationController extends Controller
 {
     use AuthorizesRequests;
 
     /**
-     * Paginate all notifications.
+     * Index all notifications.
      *
      * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function paginate(): JsonResponse
+    public function index(): JsonResponse
     {
         $this->authorize('viewAny', DatabaseNotification::class);
 
         $notifications = DatabaseNotification::latest()->simplePaginate();
 
-        return $this->createPaginatedResponse($notifications);
+        return $this->createPaginatedResponse(
+            $notifications,
+            config('notifications.notification_resource_class')
+        );
     }
 
     /**
-     * Paginate notifications that belongs to the notifiable.
+     * Index notifications that belongs to the notifiable.
      *
      * @param  string|\Illuminate\Database\Eloquent\Model $notifiable
      * @return \Illuminate\Http\JsonResponse
      */
-    public function paginateForNotifiable($notifiable): JsonResponse
+    public function indexForNotifiable($notifiable): JsonResponse
     {
         $notifiable = $this->getModelInstance($notifiable);
 
@@ -44,7 +46,10 @@ class NotificationController extends Controller
 
         $notifications = $notifiable->notifications()->latest()->simplePaginate();
 
-        return $this->createPaginatedResponse($notifications);
+        return $this->createPaginatedResponse(
+            $notifications,
+            config('notifications.notification_resource_class')
+        );
     }
 
     /**
@@ -112,7 +117,7 @@ class NotificationController extends Controller
         $modelInstance = (new $modelClass)->resolveRouteBinding($value);
 
         if (! $modelInstance) {
-            throw new ModelNotFoundException($modelInstance, $value);
+            throw (new ModelNotFoundException)->setModel($modelClass, $value);
         }
 
         return $modelInstance;
@@ -127,7 +132,7 @@ class NotificationController extends Controller
      */
     protected function createPaginatedResponse(
         AbstractPaginator $paginator,
-        string $resourceClass = NotificationResource::class
+        string $resourceClass
     ): JsonResponse
     {
         $resources = $resourceClass::collection($paginator);

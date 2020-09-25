@@ -80,9 +80,9 @@ class IndexTest extends TestCase
     public function user_can_index_own_notifications_custom_route(): void
     {
         // Instruct package to use custom routes.
-        Route::paginateNotifications('', User::class);
-        Route::paginateNotifications('players', User::class);
-        Route::prefix('custom')->group(fn() => Route::paginateNotifications('', User::class));
+        Route::indexNotifications('', User::class);
+        Route::indexNotifications('players', User::class);
+        Route::prefix('custom')->group(fn() => Route::indexNotifications('', User::class));
         
         [$user] = $this->prepare();
 
@@ -116,8 +116,8 @@ class IndexTest extends TestCase
     private function prepare(): array
     {
         // Prepare the API endpoints (routes).
-        Route::paginateNotifications('notifiables', Notifiable::class);
-        Route::paginateNotifications('users', User::class);
+        Route::indexNotifications('notifiables', Notifiable::class);
+        Route::indexNotifications('users', User::class);
         
         return $this->prepareNotifications();
     }
