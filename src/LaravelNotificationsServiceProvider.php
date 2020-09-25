@@ -3,7 +3,7 @@
 namespace OwowAgency\LaravelNotifications;
 
 use Illuminate\Support\ServiceProvider;
-use OwowAgency\LaravelNotifications\Macros\RoutePaginateNotificationsMacro;
+use OwowAgency\LaravelNotifications\Macros\RouteIndexNotificationsMacro;
 
 class LaravelNotificationsServiceProvider extends ServiceProvider
 {
@@ -55,6 +55,6 @@ class LaravelNotificationsServiceProvider extends ServiceProvider
      */
     protected function registerMacros(): void
     {
-        RoutePaginateNotificationsMacro::register();
+        RouteIndexNotificationsMacro::register();
     }
 }

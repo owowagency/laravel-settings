@@ -37,8 +37,8 @@ class IndexTest extends TestCase
     public function user_can_index_all_notifications_custom_route(): void
     {
         // Instruct package to use custom routes.
-        Route::paginateNotifications('');
-        Route::paginateNotifications('notifs');
+        Route::indexNotifications('');
+        Route::indexNotifications('notifs');
 
         [$user] = $this->prepare();
 
@@ -68,7 +68,7 @@ class IndexTest extends TestCase
     private function prepare(): array
     {
         // Prepare the API endpoint (route).
-        Route::paginateNotifications('notifications');
+        Route::indexNotifications('notifications');
         
         return $this->prepareNotifications();
     }

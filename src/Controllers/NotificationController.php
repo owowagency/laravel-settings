@@ -16,12 +16,12 @@ class NotificationController extends Controller
     use AuthorizesRequests;
 
     /**
-     * Paginate all notifications.
+     * Index all notifications.
      *
      * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function paginate(): JsonResponse
+    public function index(): JsonResponse
     {
         $this->authorize('viewAny', DatabaseNotification::class);
 
@@ -31,12 +31,12 @@ class NotificationController extends Controller
     }
 
     /**
-     * Paginate notifications that belongs to the notifiable.
+     * Index notifications that belongs to the notifiable.
      *
      * @param  string|\Illuminate\Database\Eloquent\Model $notifiable
      * @return \Illuminate\Http\JsonResponse
      */
-    public function paginateForNotifiable($notifiable): JsonResponse
+    public function indexForNotifiable($notifiable): JsonResponse
     {
         $notifiable = $this->getModelInstance($notifiable);
 
