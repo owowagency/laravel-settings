@@ -43,9 +43,15 @@ class LaravelNotificationsServiceProvider extends ServiceProvider
      */
     protected function registerPublishableFiles(): void
     {
+        // Config file.
         $this->publishes([
             __DIR__."/../config/$this->name.php" => config_path("$this->name.php"),
-        ], 'config');
+        ], ["$this->name", "$this->name.config", 'config']);
+
+        // HTTP resources.
+        $this->publishes([
+            __DIR__.'/Resources' => app_path('Http/Resources'),
+        ], ["$this->name.http_resources"]);
     }
 
     /**

@@ -1,0 +1,72 @@
+{
+    "current_page": 1,
+    "data": [
+        {
+            "id": "5e1acd79-9ccb-44fa-a706-0391ecb04c3d",
+            "custom_data": {
+                "message": "Hello user! #5"
+            }
+        },
+        {
+            "id": "6bff77e8-ac3d-4dea-aea4-25f007c9f40d",
+            "custom_data": {
+                "message": "Hello notifiable! #5"
+            }
+        },
+        {
+            "id": "121631b9-afea-4d1e-8ba5-978e2bf05565",
+            "custom_data": {
+                "message": "Hello user! #4"
+            }
+        },
+        {
+            "id": "bedff9ab-ea17-45c7-80ac-5d3f1f9b65ea",
+            "custom_data": {
+                "message": "Hello notifiable! #4"
+            }
+        },
+        {
+            "id": "38dc3ffa-7adc-4292-bd8c-70b794d66474",
+            "custom_data": {
+                "message": "Hello user! #3"
+            }
+        },
+        {
+            "id": "56f98b55-0ae1-444e-a60c-74108240efbf",
+            "custom_data": {
+                "message": "Hello notifiable! #3"
+            }
+        },
+        {
+            "id": "d349d2f1-04e3-45fb-b2db-cd45b99f3e3a",
+            "custom_data": {
+                "message": "Hello user! #2"
+            }
+        },
+        {
+            "id": "6f3114dc-68c2-4b57-8777-eaec9518cb2e",
+            "custom_data": {
+                "message": "Hello notifiable! #2"
+            }
+        },
+        {
+            "id": "699ad59b-9199-4483-a04d-67db1bfd21dd",
+            "custom_data": {
+                "message": "Hello user! #1"
+            }
+        },
+        {
+            "id": "b6a5ba64-1eda-4d2a-80af-3779cc838579",
+            "custom_data": {
+                "message": "Hello notifiable! #1"
+            }
+        }
+    ],
+    "first_page_url": "http:\/\/localhost\/notifications?page=1",
+    "from": 1,
+    "next_page_url": null,
+    "path": "http:\/\/localhost\/notifications",
+    "per_page": 15,
+    "prev_page_url": null,
+    "to": 10
+}

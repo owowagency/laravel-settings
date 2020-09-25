@@ -9,7 +9,6 @@ use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use OwowAgency\LaravelNotifications\Resources\NotificationResource;
 
 class NotificationController extends Controller
 {
@@ -27,7 +26,10 @@ class NotificationController extends Controller
 
         $notifications = DatabaseNotification::latest()->simplePaginate();
 
-        return $this->createPaginatedResponse($notifications);
+        return $this->createPaginatedResponse(
+            $notifications,
+            config('notifications.notification_resource_class')
+        );
     }
 
     /**
@@ -44,8 +46,10 @@ class NotificationController extends Controller
 
         $notifications = $notifiable->notifications()->latest()->simplePaginate();
 
-        return $this->createPaginatedResponse($notifications);
-
+        return $this->createPaginatedResponse(
+            $notifications,
+            config('notifications.notification_resource_class')
+        );
     }
 
     /**
@@ -96,7 +100,7 @@ class NotificationController extends Controller
      */
     protected function createPaginatedResponse(
         AbstractPaginator $paginator,
-        string $resourceClass = NotificationResource::class
+        string $resourceClass
     ): JsonResponse
     {
         $resources = $resourceClass::collection($paginator);
