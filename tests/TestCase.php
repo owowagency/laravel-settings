@@ -25,7 +25,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
 
         // Run the package's migrations.
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->artisan('migrate:fresh')->run();
 
         // Run the tests' migrations.
         $this->loadMigrationsFrom(__DIR__.'/Support/database/migrations');
