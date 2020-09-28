@@ -2,6 +2,7 @@
 
 namespace OwowAgency\LaravelNotifications\Macros;
 
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Route;
 use OwowAgency\LaravelNotifications\Controllers\NotificationController;
 
@@ -18,7 +19,9 @@ class RouteIndexNotificationsMacro
             'indexNotifications',
             function (string $prefix, string $notifiableClass = null) {
                 if ($notifiableClass) {
-                    Route::get("$prefix/{notifiable}/notifications", [
+                    $binding = Str::singular($prefix) ?: 'notifiable';
+
+                    Route::get("$prefix/{{$binding}}/notifications", [
                         'uses' => NotificationController::class . '@indexForNotifiable',
                         'model' => $notifiableClass,
                     ]);

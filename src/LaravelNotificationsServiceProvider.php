@@ -21,6 +21,7 @@ class LaravelNotificationsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->registerPublishableFiles();
         $this->registerMacros();
     }
@@ -57,7 +58,7 @@ class LaravelNotificationsServiceProvider extends ServiceProvider
         // HTTP resources.
         $this->publishes([
             __DIR__.'/Resources' => app_path('Http/Resources'),
-        ], ["$this->name.http_resources"]);
+        ], ["$this->name", "$this->name.http_resources"]);
     }
 
     /**
