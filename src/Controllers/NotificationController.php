@@ -9,6 +9,7 @@ use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use OwowAgency\LaravelNotifications\Models\Contracts\Notifiable;
 
 class NotificationController extends Controller
 {
@@ -37,10 +38,16 @@ class NotificationController extends Controller
      *
      * @param  string|\Illuminate\Database\Eloquent\Model $notifiable
      * @return \Illuminate\Http\JsonResponse
+     * 
+     * @throws \Exception
      */
     public function indexForNotifiable($notifiable): JsonResponse
     {
         $notifiable = $this->getModelInstance($notifiable);
+
+        if (! $notifiable instanceof Notifiable) {
+            throw new \Exception('The notifiable instance must implement the Notifiable interface.');
+        }
 
         $this->authorize('viewNotificationsOf', $notifiable);
 
