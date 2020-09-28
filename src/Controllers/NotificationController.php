@@ -69,6 +69,10 @@ class NotificationController extends Controller
     {
         $notifiable = $this->getModelInstance($notifiable);
 
+        if (! $notifiable instanceof Notifiable) {
+            throw new \Exception('The notifiable instance must implement the Notifiable interface.');
+        }
+
         $this->authorize('viewNotificationsCountOf', $notifiable);
 
         // Get the count of read, unread, and all notifications.
