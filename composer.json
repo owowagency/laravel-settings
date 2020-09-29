@@ -23,6 +23,9 @@
         "owowagency/phpunit-snapshot-assertions": "^0.0.8"
     },
     "autoload": {
+        "files": [
+            "src/Support/helpers.php"
+        ],
         "psr-4": {
             "OwowAgency\\LaravelSettings\\": "src/"
         }
