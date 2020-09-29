@@ -1,12 +1,12 @@
 version: '3'
 
 networks:
-  laravel-notifications:
+  laravel-settings:
 
 services:
   mysql_testing:
     image: mysql:5.7
-    container_name: ln-mysql-testing
+    container_name: ls-mysql-testing
     tmpfs: /var/lib/mysql
     restart: unless-stopped
     environment:
@@ -14,13 +14,13 @@ services:
       MYSQL_DATABASE: laravel
       MYSQL_USER: root
     networks:
-      - laravel-notifications
+      - laravel-settings
 
   php:
     image: thomasowow/laravel-php:7.4
-    container_name: ln-php
+    container_name: ls-php
     tty: true
     volumes:
       - .:/var/www/html:cached
     networks:
-      - laravel-notifications
+      - laravel-settings

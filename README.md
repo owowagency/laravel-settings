@@ -1,3 +1,3 @@
-# Laravel Notifications
+# Laravel Settings
 
-A package of notifications features for the Laravel framework.
+A package of settings features for the Laravel framework.

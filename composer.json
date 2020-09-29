@@ -1,6 +1,6 @@
 {
-    "name": "owowagency/laravel-notifications",
-    "description": "A package of notifications features for the Laravel framework.",
+    "name": "owowagency/laravel-settings",
+    "description": "A package of settings features for the Laravel framework.",
     "type": "library",
     "authors": [
         {
@@ -10,7 +10,7 @@
     ],
     "keywords": [
         "Laravel",
-        "Notifications"
+        "Settings"
     ],
     "require": {
         "php": "^7.4",
@@ -24,18 +24,18 @@
     },
     "autoload": {
         "psr-4": {
-            "OwowAgency\\LaravelNotifications\\": "src/"
+            "OwowAgency\\LaravelSettings\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "OwowAgency\\LaravelNotifications\\Tests\\": "tests/"
+            "OwowAgency\\LaravelSettings\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "OwowAgency\\LaravelNotifications\\LaravelNotificationsServiceProvider"
+                "OwowAgency\\LaravelSettings\\LaravelSettingsServiceProvider"
             ]
         }
     }
