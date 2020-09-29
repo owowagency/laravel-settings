@@ -85,6 +85,12 @@ class NotificationController extends Controller
             ->get()
             ->toArray();
 
+        $data = [
+            'unread' => 0,
+            'read' => 0,
+            'all' => 0,
+        ];
+
         // Map the results to a flat associative array.
         foreach ($notifsArray as $notifs) {
             $status = $notifs['status'] ?? 'all';

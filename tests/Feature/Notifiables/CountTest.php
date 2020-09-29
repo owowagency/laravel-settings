@@ -24,12 +24,29 @@ class CountTest extends TestCase
         });
 
         // User should be able to count own notifications.
-        $response1 = $this->makeRequest($user, $user);
-        $this->assertResponse($response1);
+        $response = $this->makeRequest($user, $user);
+        $this->assertResponse($response);
 
         // User should not be able to count notifiable's notifications.
-        $response2 = $this->makeRequest($user, $notifiable);
-        $this->assertResponse($response2, 403);
+        $response = $this->makeRequest($user, $notifiable);
+        $this->assertResponse($response, 403);
+    }
+
+    /** @test */
+    public function user_can_count_own_notifications_none(): void
+    {
+        [$user] = $this->prepare();
+
+        Gate::define('viewNotificationsCountOf', function (User $user, $target) {
+            return $target->is($user);
+        });
+
+        // Delete the user's notifications.
+        $user->notifications()->delete();
+
+        // All counts should be 0.
+        $response = $this->makeRequest($user, $user);
+        $this->assertResponse($response);
     }
 
     /** @test */
@@ -50,16 +67,16 @@ class CountTest extends TestCase
         });
 
         // User should be able to count notifiable's notifications from 'GET: /{id}/notifications/count'.
-        $response1 = $this->makeRequest($user, $notifiable, '');
-        $this->assertResponse($response1);
+        $response = $this->makeRequest($user, $notifiable, '');
+        $this->assertResponse($response);
 
         // User should be able to count notifiable's notifications from 'GET: /players/{id}/notifications/count'.
-        $response2 = $this->makeRequest($user, $notifiable, 'players');
-        $this->assertResponse($response2);
+        $response = $this->makeRequest($user, $notifiable, 'players');
+        $this->assertResponse($response);
 
         // User should be able to count notifiable's notifications from 'GET: /custom/{id}/notifications/count'.
-        $response3 = $this->makeRequest($user, $notifiable, 'custom');
-        $this->assertResponse($response3);
+        $response = $this->makeRequest($user, $notifiable, 'custom');
+        $this->assertResponse($response);
     }
 
     /**
