@@ -60,6 +60,48 @@ class NotificationController extends Controller
     }
 
     /**
+     * Count notifications that belongs to the notifiable.
+     *
+     * @param  string|\Illuminate\Database\Eloquent\Model $notifiable
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function countForNotifiable($notifiable): JsonResponse
+    {
+        $notifiable = $this->getModelInstance($notifiable);
+
+        if (! $notifiable instanceof Notifiable) {
+            throw new \Exception('The notifiable instance must implement the Notifiable interface.');
+        }
+
+        $this->authorize('viewNotificationsCountOf', $notifiable);
+
+        // Get the count of read, unread, and all notifications.
+        $notifsArray = $notifiable
+            ->notifications()
+            ->selectRaw('IF(read_at IS NULL, "unread", "read") as status')
+            ->selectRaw('COUNT(*) as count')
+            ->groupByRaw('status WITH ROLLUP')
+            ->reorder() // `reorder` is needed to clear the default orderBy in `notifications()`.
+            ->get()
+            ->toArray();
+
+        $data = [
+            'unread' => 0,
+            'read' => 0,
+            'all' => 0,
+        ];
+
+        // Map the results to a flat associative array.
+        foreach ($notifsArray as $notifs) {
+            $status = $notifs['status'] ?? 'all';
+
+            $data[$status] = $notifs['count'];
+        }
+
+        return new JsonResponse($data);
+    }
+
+    /**
      * Helper Methods
      * ========================================================================
      */
