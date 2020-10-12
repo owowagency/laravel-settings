@@ -4,6 +4,7 @@ namespace OwowAgency\LaravelSettings\Controllers;
 
 use Illuminate\Http\JsonResponse;
 
+
 class SettingController extends Controller
 {
     /**
@@ -13,6 +14,9 @@ class SettingController extends Controller
      */
     private string $settingResource;
 
+    /**
+     * The SettingController constructor.
+     */
     public function __construct()
     {
         $this->settingResource = config('laravel-settings.resources.setting');
@@ -21,7 +25,7 @@ class SettingController extends Controller
     /**
      * Index settings that belongs to the model.
      *
-     * @param  string|\Illuminate\Database\Eloquent\Model $model
+     * @param  string|\OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface $model
      * @return \Illuminate\Http\JsonResponse
      */
     public function indexForModel($model): JsonResponse

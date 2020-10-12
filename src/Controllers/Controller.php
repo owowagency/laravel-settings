@@ -15,11 +15,6 @@ abstract class Controller extends BaseController
     use AuthorizesRequests;
 
     /**
-     * Helper Methods
-     * ========================================================================
-     */
-
-    /**
      * Get the model instance that should be binded to the route. This function
      * is needed because we can't bind model instance with dynamic model class
      * to a controller's method.
