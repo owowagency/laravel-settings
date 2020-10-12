@@ -8,7 +8,7 @@ use Illuminate\Pagination\AbstractPaginator;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use OwowAgency\LaravelSettings\Models\Contracts\IHasSettings;
+use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
 abstract class Controller extends BaseController
 {
@@ -62,9 +62,9 @@ abstract class Controller extends BaseController
      * 
      * @param  string|\Illuminate\Database\Eloquent\Model  $value
      * @param  string[]  $interfaces
-     * @return \OwowAgency\LaravelSettings\Models\Contracts\IHasSettings
+     * @return \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface
      */
-    protected function getHasSettingsInstance($value, array $interfaces = [IHasSettings::class]): IHasSettings
+    protected function getHasSettingsInstance($value, array $interfaces = [HasSettingsInterface::class]): HasSettingsInterface
     {
         return $this->getModelInstance($value, $interfaces);
     }

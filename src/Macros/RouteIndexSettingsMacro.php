@@ -3,8 +3,8 @@
 namespace OwowAgency\LaravelSettings\Macros;
 
 use Illuminate\Support\Facades\Route;
-use OwowAgency\LaravelSettings\Models\Contracts\IHasSettings;
 use OwowAgency\LaravelSettings\Controllers\SettingController;
+use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
 class RouteIndexSettingsMacro
 {
@@ -18,7 +18,7 @@ class RouteIndexSettingsMacro
         Route::macro(
             'indexSettings',
             function (string $prefix, string $modelClass, string $postfix = 'settings') {
-                validate_interfaces_implemented($modelClass, IHasSettings::class);
+                validate_interfaces_implemented($modelClass, HasSettingsInterface::class);
 
                 $binding = strtolower(class_basename($modelClass)) ?: 'model';
                 

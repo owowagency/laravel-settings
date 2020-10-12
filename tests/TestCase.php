@@ -65,14 +65,14 @@ abstract class TestCase extends BaseTestCase
      * @param  int  $status
      * @return void
      */
-    protected function assertResponse(TestResponse $response, int $status = 200): void
-    {
-        $response->assertStatus($status);
+    // protected function assertResponse(TestResponse $response, int $status = 200): void
+    // {
+    //     $response->assertStatus($status);
 
-        if (in_array($status, [204, 403])) return;
+    //     if (in_array($status, [204, 403])) return;
 
-        $status === 422
-            ? $this->assertMatchesJsonSnapshot($response->getContent())
-            : $this->assertJsonStructureSnapshot($response);
-    }
+    //     $status === 422
+    //         ? $this->assertMatchesJsonSnapshot($response->getContent())
+    //         : $this->assertJsonStructureSnapshot($response);
+    // }
 }

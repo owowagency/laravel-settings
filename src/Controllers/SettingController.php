@@ -15,7 +15,7 @@ class SettingController extends Controller
 
     public function __construct()
     {
-        $this->settingResource = config('settings.resources.setting');
+        $this->settingResource = config('laravel-settings.resources.setting');
     }
 
     /**

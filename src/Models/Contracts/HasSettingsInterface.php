@@ -4,7 +4,7 @@ namespace OwowAgency\LaravelSettings\Models\Contracts;
 
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-interface IHasSettings
+interface HasSettingsInterface
 {
     /**
      * Get all of the model's settings.

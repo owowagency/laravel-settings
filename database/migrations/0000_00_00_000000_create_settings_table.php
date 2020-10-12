@@ -13,12 +13,13 @@ class CreateSettingsTable extends Migration
      */
     public function up(): void
     {
+        // TODO: Config table name.
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('key');
             $table->nullableMorphs('model');
-            $table->json('settings');
-            $table->unsignedTinyInteger('group')->nullable();
+            $table->string('group')->nullable();
+            $table->string('key');
+            $table->text('value')->nullable();
             $table->timestamps();
         });
     }

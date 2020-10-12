@@ -7,67 +7,92 @@ use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Facades\Route;
 use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Tests\Support\Models\User;
-use OwowAgency\LaravelSettings\Models\Contracts\IHasSettings;
+use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
 class IndexTest extends TestCase
 {
     /** @test */
-    public function user_can_index_own_settings_if_allowed(): void
+    public function user_can_index_settings(): void
     {
         [$user] = $this->prepare();
 
-        // Allow user to index own settings.
-        Gate::define('viewSettingsOf', function (User $user, $target) {
-            // Only return true if the `authorize` method is called with the correct
-            // User instance.
-            return $target->is($user);
-        });
+        // Allow the user to make the request.
+        $this->mockPolicy(true);
 
         $response = $this->makeRequest($user, $user);
-        $this->assertResponse($response);
 
-        // Other shouldn't be allowed to index user's  settings.
-        $other = User::create();
-        $response = $this->makeRequest($other, $user);
+        $this->assertResponse($response);
+    }
+
+    /** @test */
+    public function user_cannot_index_settings(): void
+    {
+        [$user] = $this->prepare();
+
+        // Do not allow the user to make the request.
+        $this->mockPolicy(false);
+
+        $response = $this->makeRequest($user, $user);
+
         $this->assertResponse($response, 403);
     }
 
     /**
-     * Helper Methods
-     * ========================================================================
-     */
-
-    /**
      * Prepares for tests.
-     *
+     * 
      * @return array
      */
     private function prepare(): array
     {
-        // Prepare the API endpoints (routes).
         Route::indexSettings('users', User::class);
 
-        $user = User::create();
+        // TODO: Create some settings that should be returned.
 
-        return [$user];
+        return [User::create()];
+    }
+
+    /**
+     * Mocks a policy.
+     * 
+     * @param  bool  $allow
+     * @return void
+     */
+    private function mockPolicy(bool $allow): void
+    {
+        Gate::define(
+            'viewSettingsOf',
+            fn (User $user, $target) => $allow,
+        );
     }
 
     /**
      * Makes a request.
-     *
+     * 
      * @param  \OwowAgency\LaravelSettings\Tests\Support\Models\User  $user
-     * @param  \Illuminate\Notifications\Notifiable  $notifiable
-     * @param  string|null  $prefix
-     * @return \Illuminate\Foundation\Testing\TestResponse
+     * @param  \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface  $hasSettings
+     * @return \Illuminate\Testing\TestReponse
      */
-    private function makeRequest(User $user, IHasSettings $model, string $prefix = null): TestResponse
+    private function makeRequest(User $user, HasSettingsInterface $hasSettings): TestResponse
     {
-        if (is_null($prefix)) {
-            $prefix = $model instanceof User ? 'users' : 'models';
+        return $this->actingAs($user)
+            ->json('GET', "/users/$hasSettings->id/settings");
+    }
+
+    /**
+     * Asserts a response.
+     * 
+     * @param  \Illuminate\Testing\TestResponse  $response
+     * @param  int  $status
+     * @return void
+     */
+    private function assertResponse(TestResponse $response, int $status = 200): void
+    {
+        $response->assertStatus($status);
+
+        if ($status !== 200) {
+            return;
         }
-        
-        return $this
-            ->actingAs($user)
-            ->json('GET', "$prefix/$model->id/settings");
+
+        $this->assertJsonStructureSnapshot($response);
     }
 }
