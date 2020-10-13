@@ -12,7 +12,7 @@ class LaravelSettingsServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    private string $name = 'laravel-settings';
+    private $name = 'laravel-settings';
     
     /**
      * Bootstrap any application services.

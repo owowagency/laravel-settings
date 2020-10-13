@@ -3,6 +3,7 @@
 namespace OwowAgency\LaravelSettings\Support;
 
 use Illuminate\Support\Collection;
+use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
 class SettingManager

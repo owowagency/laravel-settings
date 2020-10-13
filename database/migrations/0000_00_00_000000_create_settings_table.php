@@ -14,7 +14,7 @@ class CreateSettingsTable extends Migration
     public function up(): void
     {
         // TODO: Config table name.
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create(config('laravel-settings.table_name'), function (Blueprint $table) {
             $table->id();
             $table->nullableMorphs('model');
             $table->string('group')->nullable();

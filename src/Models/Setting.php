@@ -47,4 +47,14 @@ class Setting extends Model
     {
         return $query->whereIn($this->getTable() . '.group', $groups);
     }
+
+    /**
+     * Get the table associated with the model.
+     *
+     * @return string
+     */
+    public function getTable()
+    {
+        return config('laravel-settings.table_name');
+    }
 }

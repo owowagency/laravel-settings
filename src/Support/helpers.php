@@ -16,19 +16,16 @@ if (! function_exists('validate_interfaces_implemented')) {
     {
         $interfaces = Arr::flatten($interfaces);
         
-        if (
-            ! empty($interfaces)
+        if (! empty($interfaces)
             && ! Arr::has(class_implements($entity), $interfaces)
         ) {
             $message = sprintf(
                 '%s must implement the required interfaces: %s.',
                 is_string($entity) ? $entity : get_class($entity),
-                implode(', ', $interfaces)
+                implode(', ', $interfaces),
             );
 
             throw new \Exception($message);
-
-            return false;
         }
 
         return true;

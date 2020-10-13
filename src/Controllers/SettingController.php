@@ -4,7 +4,6 @@ namespace OwowAgency\LaravelSettings\Controllers;
 
 use Illuminate\Http\JsonResponse;
 
-
 class SettingController extends Controller
 {
     /**
@@ -12,7 +11,7 @@ class SettingController extends Controller
      *
      * @var string
      */
-    private string $settingResource;
+    private $settingResource;
 
     /**
      * The SettingController constructor.
