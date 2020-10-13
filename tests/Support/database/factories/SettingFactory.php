@@ -24,7 +24,6 @@ class SettingFactory extends Factory
         return [
             'model_id' => null,
             'model_type' => null,
-            'group' => null,
             'key' => $this->faker->slug,
             'value' => null,
         ];

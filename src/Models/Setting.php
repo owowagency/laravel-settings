@@ -18,7 +18,7 @@ class Setting extends Model
      * @var array
      */
     protected $fillable = [
-        'group', 'settings',
+        'settings',
     ];
     
     /**
@@ -38,18 +38,6 @@ class Setting extends Model
     public function model(): MorphTo
     {
         return $this->morphTo();
-    }
-
-    /**
-     * Scope a query to only include settings that are in the specified group(s).
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  int|int[]  $groups
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeInGroup(Builder $query, ...$groups): Builder
-    {
-        return $query->whereIn($this->getTable() . '.group', $groups);
     }
 
     /**

@@ -16,13 +16,11 @@ class CreateSettingsTable extends Migration
         Schema::create(config('laravel-settings.table_name'), function (Blueprint $table) {
             $table->id();
             $table->nullableMorphs('model');
-            // TODO remove group and create in a different issue.
-            $table->string('group')->nullable();
             $table->string('key');
             $table->text('value')->nullable();
             $table->timestamps();
 
-            $table->unique(['model', 'group', 'key']);
+            $table->unique(['model', 'key']);
         });
     }
 
