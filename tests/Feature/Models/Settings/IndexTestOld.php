@@ -9,7 +9,7 @@ use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Tests\Support\Models\User;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
-class IndexTest extends TestCase
+class IndexTestOld extends TestCase
 {
     /** @test */
     public function user_can_index_own_settings_if_allowed(): void

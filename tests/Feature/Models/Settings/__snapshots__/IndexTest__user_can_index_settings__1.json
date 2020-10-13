@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "id": 1,
+        "key": "aut-non-aut-ducimus-accusamus-aut",
+        "title": null,
+        "description": null,
+        "settings": null,
+        "group": null
+    },
+    {
+        "id": 2,
+        "key": "sapiente-ipsum-in-labore-exercitationem-autem-et-sit",
+        "title": null,
+        "description": null,
+        "settings": null,
+        "group": null
+    },
+    {
+        "id": 3,
+        "key": "est-maxime-nobis-commodi-ut-et-cumque",
+        "title": null,
+        "description": null,
+        "settings": null,
+        "group": null
+    }
+]

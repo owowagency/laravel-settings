@@ -33,6 +33,7 @@ class SettingController extends Controller
 
         $this->authorize('viewSettingsOf', $model);
 
+        // Replace by manager.
         $settings = $model->settings()->get();
 
         $resources = $this->settingResource::collection($settings);

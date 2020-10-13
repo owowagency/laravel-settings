@@ -5,6 +5,7 @@ namespace OwowAgency\LaravelSettings\Tests\Feature\Models\Settings;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Testing\TestResponse;
 use Illuminate\Support\Facades\Route;
+use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Tests\Support\Models\User;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
@@ -46,13 +47,20 @@ class IndexTest extends TestCase
     {
         Route::indexSettings('users', User::class);
 
-        // TODO: Create some settings that should be returned.
+        $user = User::create();
 
-        return [User::create()];
+        $settings = Setting::factory()->count(3)->create([
+            'model_id' => $user->id,
+            'model_type' => (new User)->getMorphClass(),
+        ]);
+
+        return [$user, $settings];
     }
 
     /**
-     * Mocks a policy.
+     * Mocks a policy. This is needed because the policy is not created in the
+     * package, but in the project of the user itself. There we'll probably find
+     * a UserPolicy.
      * 
      * @param  bool  $allow
      * @return void
@@ -61,7 +69,9 @@ class IndexTest extends TestCase
     {
         Gate::define(
             'viewSettingsOf',
-            fn (User $user, $target) => $allow,
+            function(User $user, $target) use ($allow) {
+                return $allow;
+            },
         );
     }
 

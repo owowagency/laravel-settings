@@ -5,9 +5,13 @@ namespace OwowAgency\LaravelSettings\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use OwowAgency\LaravelSettings\Tests\Support\Database\Factories\SettingFactory;
 
 class Setting extends Model
 {
+    use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -56,5 +60,15 @@ class Setting extends Model
     public function getTable()
     {
         return config('laravel-settings.table_name');
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return SettingFactory::new();
     }
 }

@@ -33,6 +33,9 @@ class SettingManager
     {
         $configured = static::getConfigured();
 
+        // Should return all settings as in the configuration fill. Add missing
+        // settings, removed none found settings.
+
         return $filled;
     }
 

@@ -31,6 +31,9 @@
         }
     },
     "autoload-dev": {
+        "files": [
+            "tests/Support/database/factories/SettingFactory.php"
+        ],
         "psr-4": {
             "OwowAgency\\LaravelSettings\\Tests\\": "tests/"
         }

@@ -15,12 +15,14 @@ return [
     ],
 
     'settings' => [
-        'follow_notification' => [
-            'title' => 'Yo',
-            'description' => '',
+
+        'wants_promotion_emails' => [
+            'title' => 'Receive commercial emails',
+            'description' => 'Would you like to receive commercial emails for our marketing campaign?',
             'type' => 'bool',
             'default' => true,
         ],
+
     ],
 
 ];
