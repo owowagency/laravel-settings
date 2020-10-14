@@ -3,6 +3,7 @@
 namespace OwowAgency\LaravelSettings\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use OwowAgency\LaravelSettings\Support\SettingManager;
 
 class SettingResource extends JsonResource
 {
@@ -15,11 +16,15 @@ class SettingResource extends JsonResource
     public function toArray($request): array
     {
         return [
-            'id' => $this->id,
-            'key' => $this->key,
-            'title' => $this->title,
-            'description' => $this->description,
-            'settings' => $this->settings,
+            'title' => $this->resource['title'],
+            'description' => $this->resource['description'],
+            'type' => $this->resource['type'],
+            'default' => $this->resource['default'],
+            'key' => $this->resource['key'],
+            'value' => SettingManager::convertToType(
+                $this->resource['type'],
+                $this->resource['value'],
+            ),
         ];
     }
 }

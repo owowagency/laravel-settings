@@ -23,6 +23,8 @@ class LaravelSettingsServiceProvider extends ServiceProvider
     {
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
+        $this->loadTranslationsFrom(__DIR__.'/../translations', $this->name);
+
         $this->registerPublishableFiles();
 
         $this->registerMacros();

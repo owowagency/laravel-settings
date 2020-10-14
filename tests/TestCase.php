@@ -8,6 +8,7 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithTime;
 use OwowAgency\LaravelSettings\LaravelSettingsServiceProvider;
+use OwowAgency\LaravelSettings\Tests\Support\Concerns\HasSettings;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -27,6 +28,22 @@ abstract class TestCase extends BaseTestCase
 
         // Run the tests' migrations.
         $this->loadMigrationsFrom(__DIR__.'/Support/database/migrations');
+    }
+
+    /**
+     * Boot the testing helper traits.
+     *
+     * @return array
+     */
+    protected function setUpTraits()
+    {
+        $uses = parent::setUpTraits();
+
+        if (isset($uses[HasSettings::class])) {
+            $this->setupSettings();
+        }
+
+        return $uses;
     }
 
     /**
@@ -52,27 +69,4 @@ abstract class TestCase extends BaseTestCase
     {
         return TestResponse::fromBaseResponse($response);
     }
-
-    /**
-     * Optional Helper Methods
-     * ========================================================================
-     */
-
-    /**
-     * Asserts a response.
-     *
-     * @param  \Illuminate\Foundation\Testing\TestResponse  $response
-     * @param  int  $status
-     * @return void
-     */
-    // protected function assertResponse(TestResponse $response, int $status = 200): void
-    // {
-    //     $response->assertStatus($status);
-
-    //     if (in_array($status, [204, 403])) return;
-
-    //     $status === 422
-    //         ? $this->assertMatchesJsonSnapshot($response->getContent())
-    //         : $this->assertJsonStructureSnapshot($response);
-    // }
 }

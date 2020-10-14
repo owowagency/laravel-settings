@@ -20,7 +20,7 @@ class CreateSettingsTable extends Migration
             $table->text('value')->nullable();
             $table->timestamps();
 
-            $table->unique(['model', 'key']);
+            $table->unique(['model_id', 'model_type', 'key']);
         });
     }
 

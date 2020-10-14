@@ -3,6 +3,7 @@
 namespace OwowAgency\LaravelSettings\Controllers;
 
 use Illuminate\Http\JsonResponse;
+use OwowAgency\LaravelSettings\Support\SettingManager;
 
 class SettingController extends Controller
 {
@@ -33,8 +34,7 @@ class SettingController extends Controller
 
         $this->authorize('viewSettingsOf', $model);
 
-        // Replace by manager.
-        $settings = $model->settings()->get();
+        $settings = SettingManager::getForModel($model);
 
         $resources = $this->settingResource::collection($settings);
 

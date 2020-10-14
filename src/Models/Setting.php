@@ -3,9 +3,9 @@
 namespace OwowAgency\LaravelSettings\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use OwowAgency\LaravelSettings\Support\SettingManager;
 use OwowAgency\LaravelSettings\Tests\Support\Database\Factories\SettingFactory;
 
 class Setting extends Model
@@ -18,16 +18,7 @@ class Setting extends Model
      * @var array
      */
     protected $fillable = [
-        'settings',
-    ];
-    
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'settings' => 'array',
+        'key', 'value',
     ];
     
     /**
@@ -48,6 +39,20 @@ class Setting extends Model
     public function getTable()
     {
         return config('laravel-settings.table_name');
+    }
+
+    /**
+     * Get the value converted to the configured type.
+     *
+     * @return mixed
+     */
+    public function getConvertedValueAttribute()
+    {
+        $configuration = SettingManager::getConfigured()->get($this->key);
+
+        $type = data_get($configuration, 'type');
+
+        return SettingManager::convertToType($type, $this->value);
     }
 
     /**

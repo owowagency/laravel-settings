@@ -8,10 +8,13 @@ use Illuminate\Support\Facades\Route;
 use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Tests\Support\Models\User;
+use OwowAgency\LaravelSettings\Tests\Support\Concerns\HasSettings;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
 class IndexTest extends TestCase
 {
+    use HasSettings;
+
     /** @test */
     public function user_can_index_settings(): void
     {
@@ -47,14 +50,12 @@ class IndexTest extends TestCase
     {
         Route::indexSettings('users', User::class);
 
-        $user = User::create();
-
-        $settings = Setting::factory()->count(3)->create([
-            'model_id' => $user->id,
-            'model_type' => (new User)->getMorphClass(),
+        $setting = Setting::factory()->create([
+            'key' => 'lang',
+            'value' => 'nl',
         ]);
 
-        return [$user, $settings];
+        return [$setting->model, $setting];
     }
 
     /**
