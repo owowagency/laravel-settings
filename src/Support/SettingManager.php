@@ -3,7 +3,6 @@
 namespace OwowAgency\LaravelSettings\Support;
 
 use Illuminate\Support\Collection;
-use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
 class SettingManager
@@ -49,27 +48,6 @@ class SettingManager
     }
 
     /**
-     * Create a new setting model and fill it with the default data.
-     *
-     * @param  \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface  $model
-     * @param  string  $key
-     * @return \OwowAgency\LaravelSettings\Models\Setting
-     */
-    public static function fillSettingModel(
-        HasSettingsInterface $model,
-        string $key
-    ): Setting {
-        $configuration = static::getConfiguration($key);
-
-        return (new Setting())->forceFill([
-            'model_id' => $model->id,
-            'model_type' => $model->getMorphClass(),
-            'key' => $key,
-            'value' => data_get($configuration, 'default'),
-        ]);
-    }
-
-    /**
      * Convert the given value to the given type.
      *
      * @param  string  $type
@@ -98,23 +76,35 @@ class SettingManager
     }
 
     /**
-     * Retrieves the configured settings.
+     * Retrieves the configured settings with all the required keys.
      * 
      * @return \Illuminate\Support\Collection
      */
     public static function getConfigured(): Collection
     {
-        return collect(config('laravel-settings.settings', []));
+        $raw = static::getRawConfigured();
+
+        $minimum = [
+            'title' => null,
+            'description' => null,
+            'type' => 'string',
+            'default' => null,
+        ];
+
+        foreach ($raw as $key => $config) {
+            $raw[$key] = $config + $minimum;
+        }
+
+        return collect($raw);
     }
 
     /**
-     * Get the configuration values of the given setting by its key.
+     * Retrieves the raw configured settings.
      *
-     * @param  string  $key
-     * @return array|null
+     * @return array
      */
-    public static function getConfiguration(string $key): ?array
+    public static function getRawConfigured(): array
     {
-        return data_get(config('laravel-settings.settings', []), $key);
+        return config('laravel-settings.settings', []);
     }
 }
