@@ -25,7 +25,7 @@ class SettingController extends Controller
     /**
      * Index settings that belongs to the model.
      *
-     * @param  string|\OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface $model
+     * @param  string|\OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface  $model
      * @return \Illuminate\Http\JsonResponse
      */
     public function indexForModel($model): JsonResponse
