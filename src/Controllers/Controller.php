@@ -55,7 +55,7 @@ abstract class Controller extends BaseController
     /**
      * Get the HasSetting instance that should be binded to the route.
      * 
-     * @param  string|\Illuminate\Database\Eloquent\Model  $value
+     * @param  string|int|\Illuminate\Database\Eloquent\Model  $value
      * @param  string[]  $interfaces
      * @return \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface
      */

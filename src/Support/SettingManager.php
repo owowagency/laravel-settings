@@ -17,17 +17,16 @@ class SettingManager
     {
         $settings = $model->settings()->get();
 
-        return static::fillValues($settings);
+        return static::mergeWithSettingsConfig($settings);
     }
 
     /**
-     * Fills the settings configuration with all the values from the given
-     * settings.
+     * Merge the settings collection with the settings config..
      *
      * @param  \Illuminate\Support\Collection  $settings
      * @return \Illuminate\Support\Collection
      */
-    public static function fillValues(
+    public static function mergeWithSettingsConfig(
         Collection $settings
     ): Collection {
         $callback = function ($configuration, $key) use ($settings) {
@@ -35,6 +34,7 @@ class SettingManager
 
             $configuration['key'] = $key;
 
+            // The settings config default values will be used as fallback.
             $configuration['value'] = $setting === null
                 ? $configuration['default']
                 : $setting->value;

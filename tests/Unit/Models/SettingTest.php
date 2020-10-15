@@ -15,8 +15,12 @@ class SettingTest extends TestCase
     {
         $setting = Setting::factory()->create([
             'key' => 'wants_promotion_emails',
-            'value' => 'true',
+            'value' => true,
         ]);
+
+        // Refresh the model so that the value attribute becomes a string
+        // instead of a boolean.
+        $setting->refresh();
 
         $this->assertTrue($setting->converted_value);
     }
