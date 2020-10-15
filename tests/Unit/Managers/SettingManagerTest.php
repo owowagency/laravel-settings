@@ -8,7 +8,7 @@ use OwowAgency\LaravelSettings\Support\SettingManager;
 class SettingManagerTest extends TestCase
 {
     /** @test */
-    public function it_returns_all_keys()
+    public function it_returns_all_minimum_properties()
     {
         config(['laravel-settings.settings' => [
             'key' => [

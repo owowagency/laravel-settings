@@ -31,6 +31,6 @@ class CreateSettingsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists(config('laravel-settings.table_name'));
     }
 }

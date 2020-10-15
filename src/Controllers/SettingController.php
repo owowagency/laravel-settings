@@ -8,7 +8,7 @@ use OwowAgency\LaravelSettings\Support\SettingManager;
 class SettingController extends Controller
 {
     /**
-     * The JSON resource to be used to serialize settings.
+     * The class name of the JSON resource to be used to serialize settings.
      *
      * @var string
      */

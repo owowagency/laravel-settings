@@ -17,34 +17,32 @@ class SettingManager
     {
         $settings = $model->settings()->get();
 
-        return static::fillMissing($settings);
+        return static::fillValues($settings);
     }
 
     /**
-     * Fills the missing settings.
+     * Fills the settings configuration with all the values from the given
+     * settings.
      *
      * @param  \Illuminate\Support\Collection  $settings
      * @return \Illuminate\Support\Collection
      */
-    public static function fillMissing(
+    public static function fillValues(
         Collection $settings
     ): Collection {
-        $configured = config('laravel-settings.settings', []);
+        $callback = function ($configuration, $key) use ($settings) {
+            $setting = $settings->firstWhere('key', $key);
 
-        foreach ($configured as $key => $configuration) {
-            $setting = $settings->where('key', $key)
-                ->first();
+            $configuration['key'] = $key;
 
-            data_set($configured, "$key.key", $key);
-
-            $value = $setting === null
+            $configuration['value'] = $setting === null
                 ? $configuration['default']
                 : $setting->value;
 
-            data_set($configured, "$key.value", $value);
-        }
+            return $configuration;
+        };
 
-        return collect(array_values($configured));
+        return static::getConfigured()->map($callback)->values();
     }
 
     /**
@@ -82,8 +80,6 @@ class SettingManager
      */
     public static function getConfigured(): Collection
     {
-        $raw = static::getRawConfigured();
-
         $minimum = [
             'title' => null,
             'description' => null,
@@ -91,20 +87,18 @@ class SettingManager
             'default' => null,
         ];
 
-        foreach ($raw as $key => $config) {
-            $raw[$key] = $config + $minimum;
-        }
-
-        return collect($raw);
+        return static::getRawConfigured()->map(function ($config) use ($minimum) {
+            return $config + $minimum;
+        });
     }
 
     /**
      * Retrieves the raw configured settings.
      *
-     * @return array
+     * @return \Illuminate\Support\Collection
      */
-    public static function getRawConfigured(): array
+    public static function getRawConfigured(): Collection
     {
-        return config('laravel-settings.settings', []);
+        return collect(config('laravel-settings.settings', []));
     }
 }
