@@ -33,7 +33,7 @@ class SettingController extends Controller
     {
         $model = $this->getHasSettingsInstance($model);
 
-        $this->authorize('viewSettingsOf', $model);
+        $this->authorize('viewSettings', $model);
 
         $settings = SettingManager::getForModel($model);
 
@@ -53,9 +53,12 @@ class SettingController extends Controller
     {
         $model = $this->getHasSettingsInstance($model);
 
-        $this->authorize('updateSettingsOf', $model);
+        $this->authorize('updateSettings', $model);
 
-        $settings = SettingManager::updateForModel($model, $request->get('settings'));
+        $settings = SettingManager::updateForModel(
+            $model,
+            data_get($request->validated(), 'settings', [])
+        );
 
         $resources = $this->settingResource::collection($settings);
 
