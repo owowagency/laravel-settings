@@ -35,7 +35,7 @@ class SettingController extends Controller
 
         $this->authorize('viewSettingsOf', $model);
 
-        $settings = SettingManager::getForModel($model);
+        $settings = $model->getSettings();
 
         $resources = $this->settingResource::collection($settings);
 
