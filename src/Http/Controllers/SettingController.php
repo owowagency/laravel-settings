@@ -1,9 +1,10 @@
 <?php
 
-namespace OwowAgency\LaravelSettings\Controllers;
+namespace OwowAgency\LaravelSettings\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use OwowAgency\LaravelSettings\Support\SettingManager;
+use OwowAgency\LaravelSettings\Http\Requests\UpdateRequest;
 
 class SettingController extends Controller
 {
@@ -35,6 +36,27 @@ class SettingController extends Controller
         $this->authorize('viewSettingsOf', $model);
 
         $settings = SettingManager::getForModel($model);
+
+        $resources = $this->settingResource::collection($settings);
+
+        return new JsonResponse($resources);
+    }
+
+
+    /**
+     * Update the settings of a model.
+     *
+     * @param  \OwowAgency\LaravelSettings\Http\Requests\UpdateRequest  $request
+     * @param  string|int|\OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface  $model
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(UpdateRequest $request, $model): JsonResponse
+    {
+        $model = $this->getHasSettingsInstance($model);
+
+        $this->authorize('updateSettingsOf', $model);
+
+        $settings = SettingManager::updateForModel($model, $request->get('settings'));
 
         $resources = $this->settingResource::collection($settings);
 

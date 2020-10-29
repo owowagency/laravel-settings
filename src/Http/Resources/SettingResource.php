@@ -1,6 +1,6 @@
 <?php
 
-namespace OwowAgency\LaravelSettings\Resources;
+namespace OwowAgency\LaravelSettings\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use OwowAgency\LaravelSettings\Support\SettingManager;

@@ -21,6 +21,25 @@ class SettingManager
     }
 
     /**
+     * Update the settings for the specified model and return all new values.
+     *
+     * @param  \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface  $model
+     * @param  array  $settings
+     * @return \Illuminate\Support\Collection
+     */
+    public static function updateForModel(HasSettingsInterface $model, array $settings): Collection
+    {
+        foreach ($settings as $setting) {
+            $model->settings()->updateOrCreate(
+                ['key' => $setting['key']],
+                ['value' => $setting['value']],
+            );
+        }
+
+        return static::getForModel($model);
+    }
+
+    /**
      * Merge the settings collection with the settings config..
      *
      * @param  \Illuminate\Support\Collection  $settings
