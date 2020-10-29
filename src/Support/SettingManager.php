@@ -104,6 +104,7 @@ class SettingManager
             'description' => null,
             'type' => 'string',
             'default' => null,
+            'nullable' => false,
         ];
 
         return static::getRawConfigured()->map(function ($config) use ($minimum) {

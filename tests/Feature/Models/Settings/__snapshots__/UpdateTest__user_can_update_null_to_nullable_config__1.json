@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Receive commercial emails",
+        "description": "Would you like to receive commercial emails for our marketing campaign?",
+        "type": "bool",
+        "default": false,
+        "key": "wants_promotion_emails",
+        "value": false
+    },
+    {
+        "title": "Delete my account after inactivity",
+        "description": "If I don't login in for a certain amount of days, you may delete my account.",
+        "type": "int",
+        "default": 365,
+        "key": "delete_account",
+        "value": 365
+    },
+    {
+        "title": "What language do you speak?",
+        "description": "We'll translate the application to your preferred language.",
+        "type": "string",
+        "default": "en",
+        "key": "lang",
+        "value": null
+    }
+]

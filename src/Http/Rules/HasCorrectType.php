@@ -3,38 +3,16 @@
 namespace OwowAgency\LaravelSettings\Http\Rules;
 
 use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
-use Illuminate\Contracts\Validation\Rule;
 use OwowAgency\LaravelSettings\Support\SettingManager;
-use Illuminate\Validation\Concerns\ValidatesAttributes;
 
-class HasCorrectType implements Rule
+class HasCorrectType extends BaseRule
 {
-    use ValidatesAttributes;
-
-    /**
-     * The collection containing all configuration values.
-     *
-     * @var \Illuminate\Support\Collection
-     */
-    private $configuration;
-
     /**
      * The type which is being validated by this rule.
      *
      * @var string
      */
     private $type;
-
-    /**
-     * HasCorrectType constructor.
-     *
-     * @param  \Illuminate\Support\Collection|null  $configuration
-     */
-    public function __construct(?Collection $configuration = null)
-    {
-        $this->configuration = $configuration ?? SettingManager::getConfigured();
-    }
 
     /**
      * Validates if value is a base64 string and the correct mime type.
@@ -45,6 +23,10 @@ class HasCorrectType implements Rule
      */
     public function passes($attribute, $value)
     {
+        if (is_null($value) && $this->canBeNullable($attribute)) {
+            return true;
+        }
+
         $this->type = $this->getType($attribute);
 
         if ($this->type === null) {
@@ -55,17 +37,16 @@ class HasCorrectType implements Rule
     }
 
     /**
-     * Get the type from the configuration based on the key which can be found
-     * in the request.
+     * Determine if the value of this rule can be nullable.
      *
      * @param  string  $attribute
-     * @return string
+     * @return bool
      */
-    protected function getType(string $attribute): string
+    protected function canBeNullable(string $attribute): bool
     {
-        $key = str_replace('value', 'key', $attribute);
+        $nullable = $this->getConfigValue($attribute, 'nullable', false);
 
-        return data_get($this->configuration[request($key)], 'type');
+        return SettingManager::convertToType('bool', $nullable);
     }
 
     /**

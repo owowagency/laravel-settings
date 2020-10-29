@@ -28,7 +28,7 @@ class UpdateRequest extends FormRequest
                 Rule::in($configuration->keys()),
             ],
             'settings.*.value' => [
-                'required',
+                'present',
                 new HasCorrectType($configuration),
             ],
         ];
