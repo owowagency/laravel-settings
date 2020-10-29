@@ -41,7 +41,6 @@ class UpdateTest extends TestCase
     {
         [$user] = $this->prepare();
 
-        // Allow the user to make the request.
         $this->mockPolicy(true);
 
         $data = [
@@ -62,7 +61,6 @@ class UpdateTest extends TestCase
     {
         [$user] = $this->prepare();
 
-        // Allow the user to make the request.
         $this->mockPolicy(true);
 
         // The configuration value for lang has a type of string. So a boolean
@@ -87,7 +85,6 @@ class UpdateTest extends TestCase
 
         config(['laravel-settings.settings.lang.nullable' => true]);
 
-        // Allow the user to make the request.
         $this->mockPolicy(true);
 
         $data = [
@@ -108,7 +105,6 @@ class UpdateTest extends TestCase
     {
         [$user] = $this->prepare();
 
-        // Allow the user to make the request.
         $this->mockPolicy(true);
 
         $data = [
@@ -137,6 +133,21 @@ class UpdateTest extends TestCase
         ]]]);
 
         $this->assertResponse($response, 403);
+    }
+
+    /** @test */
+    public function user_cannot_update_unknown_settings(): void
+    {
+        [$user] = $this->prepare();
+
+        $this->mockPolicy(true);
+
+        $response = $this->makeRequest($user, $user, ['settings' => [[
+            'key' => '💩',
+            'value' => 'What?',
+        ]]]);
+
+        $this->assertResponse($response, 422);
     }
 
     /**

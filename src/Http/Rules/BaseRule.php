@@ -35,7 +35,7 @@ abstract class BaseRule implements Rule
      * @param  string  $attribute
      * @return string
      */
-    protected function getType(string $attribute): string
+    protected function getType(string $attribute): ?string
     {
         return $this->getConfigValue($attribute, 'type');
     }
@@ -47,11 +47,15 @@ abstract class BaseRule implements Rule
      * @param  string  $attribute
      * @param  string  $key
      * @param  mixed  $default
-     * @return string
+     * @return mixed
      */
-    protected function getConfigValue(string $attribute, string $key, $default = null): string
+    protected function getConfigValue(string $attribute, string $key, $default = null)
     {
         $configKey = request(str_replace('value', 'key', $attribute));
+
+        if (! $this->configuration->offsetExists($configKey)) {
+            return $default;
+        }
 
         return data_get($this->configuration[$configKey], $key, $default);
     }
