@@ -23,7 +23,7 @@ class HasCorrectType extends BaseRule
      */
     public function passes($attribute, $value)
     {
-        if (is_null($value) && $this->canBeNullable($attribute)) {
+        if (is_null($value) && $this->canBeNull($attribute)) {
             return true;
         }
 
@@ -42,7 +42,7 @@ class HasCorrectType extends BaseRule
      * @param  string  $attribute
      * @return bool
      */
-    protected function canBeNullable(string $attribute): bool
+    protected function canBeNull(string $attribute): bool
     {
         $nullable = $this->getConfigValue($attribute, 'nullable', false);
 
@@ -88,9 +88,7 @@ class HasCorrectType extends BaseRule
         }
 
         throw new \Exception(
-            trans('laravel-settings::general.exceptions.unsupported_type', [
-                'type' => $this->type,
-            ]),
+            trans('laravel-settings::general.exceptions.unsupported_type', compact('type')),
         );
     }
 

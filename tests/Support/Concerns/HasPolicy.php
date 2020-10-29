@@ -17,7 +17,7 @@ trait HasPolicy
      */
     protected function mockPolicy(bool $allow): void
     {
-        $abilities = ['viewSettingsOf', 'updateSettingsOf'];
+        $abilities = ['viewSettings', 'updateSettings'];
 
         foreach ($abilities as $ability) {
             Gate::define(

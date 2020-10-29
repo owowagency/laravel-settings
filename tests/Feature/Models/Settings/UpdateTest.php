@@ -18,7 +18,7 @@ class UpdateTest extends TestCase
     /** @test */
     public function user_can_update_existing_settings(): void
     {
-        [$user] = $this->prepare();
+        [$user, $setting] = $this->prepare();
 
         // Allow the user to make the request.
         $this->mockPolicy(true);
@@ -33,7 +33,7 @@ class UpdateTest extends TestCase
         ]);
 
         $this->assertResponse($response);
-        $this->assertDatabase($user, $data);
+        $this->assertDatabase($user, $data + ['id' => $setting->id]);
     }
 
     /** @test */
@@ -124,7 +124,7 @@ class UpdateTest extends TestCase
     }
 
     /** @test */
-    public function user_cannot_index_settings(): void
+    public function user_cannot_update_settings(): void
     {
         [$user] = $this->prepare();
 

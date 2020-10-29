@@ -82,6 +82,27 @@ class HasCorrectTypeTest extends TestCase
         $this->assertTrue($rule->passes('settings.0.value', null));
     }
 
+    /** @test */
+    public function it_throws_an_exception_on_incorrect_type(): void
+    {
+        // Contains a typo.
+        $rule = $this->mockRule('strng');
+
+        $this->expectException(\Exception::class);
+
+        $rule->passes('settings.0.value', 'ERROR 💩!');
+    }
+
+    /** @test */
+    public function it_returns_a_valid_error_message(): void
+    {
+        $rule = $this->mockRule('string');
+
+        $rule->passes('settings.0.value', 1);
+
+        $this->assertEquals(trans('validation.string'), $rule->message());
+    }
+
     /**
      * Mock the rule.
      *
