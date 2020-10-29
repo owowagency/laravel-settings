@@ -74,20 +74,34 @@ class HasCorrectTypeTest extends TestCase
         $this->assertFalse($rule->passes('settings.0.value', 'string'));
     }
 
+    /** @test */
+    public function it_validates_nullable_config_values(): void
+    {
+        $rule = $this->mockRule('string', true);
+
+        $this->assertTrue($rule->passes('settings.0.value', null));
+    }
+
     /**
      * Mock the rule.
      *
      * @param  string  $type
+     * @param  bool  $allowNullable
      * @return \OwowAgency\LaravelSettings\Http\Rules\HasCorrectType
      */
-    private function mockRule(string $type): HasCorrectType
+    private function mockRule(string $type, $allowNullable = false): HasCorrectType
     {
-        return $this->mock(HasCorrectType::class, function ($mock) use ($type) {
+        return $this->mock(HasCorrectType::class, function ($mock) use ($type, $allowNullable) {
             $mock->shouldAllowMockingProtectedMethods()
                 ->makePartial()
                 ->shouldReceive('getType')
-                ->once()
                 ->andReturn($type);
+
+            if ($allowNullable) {
+                $mock->shouldReceive('canBeNullable')
+                    ->once()
+                    ->andReturn(true);
+            }
         });
     }
 }
