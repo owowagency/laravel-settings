@@ -42,7 +42,6 @@ class SettingController extends Controller
         return new JsonResponse($resources);
     }
 
-
     /**
      * Update the settings of a model.
      *

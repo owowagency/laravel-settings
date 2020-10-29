@@ -25,7 +25,7 @@ class UpdateTest extends TestCase
 
         $data = [
             'key' => 'lang',
-            'value' => 'en'
+            'value' => 'en',
         ];
 
         $response = $this->makeRequest($user, $user, [
@@ -90,7 +90,7 @@ class UpdateTest extends TestCase
 
         $response = $this->makeRequest($user, $user, ['settings' => [[
             'key' => 'lang',
-            'value' => 'en'
+            'value' => 'en',
         ]]]);
 
         $this->assertResponse($response, 403);

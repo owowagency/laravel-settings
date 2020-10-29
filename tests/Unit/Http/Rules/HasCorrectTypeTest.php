@@ -11,7 +11,7 @@ class HasCorrectTypeTest extends TestCase
     use HasSettings;
 
     /** @test */
-    public function it_validates_booleans()
+    public function it_validates_booleans(): void
     {
         $rule = $this->mockRule('bool');
 
@@ -19,7 +19,7 @@ class HasCorrectTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_for_invalid_booleans()
+    public function it_fails_for_invalid_booleans(): void
     {
         $rule = $this->mockRule('bool');
 
@@ -27,7 +27,7 @@ class HasCorrectTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_validates_strings()
+    public function it_validates_strings(): void
     {
         $rule = $this->mockRule('string');
 
@@ -35,7 +35,7 @@ class HasCorrectTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_for_invalid_strings()
+    public function it_fails_for_invalid_strings(): void
     {
         $rule = $this->mockRule('string');
 
@@ -43,7 +43,7 @@ class HasCorrectTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_validates_integers()
+    public function it_validates_integers(): void
     {
         $rule = $this->mockRule('int');
 
@@ -51,7 +51,7 @@ class HasCorrectTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_for_invalid_integers()
+    public function it_fails_for_invalid_integers(): void
     {
         $rule = $this->mockRule('int');
 
@@ -59,7 +59,7 @@ class HasCorrectTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_validates_arrays()
+    public function it_validates_arrays(): void
     {
         $rule = $this->mockRule('array');
 
@@ -67,7 +67,7 @@ class HasCorrectTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_fails_for_invalid_arrays()
+    public function it_fails_for_invalid_arrays(): void
     {
         $rule = $this->mockRule('array');
 
