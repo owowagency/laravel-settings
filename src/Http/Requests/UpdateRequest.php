@@ -21,6 +21,7 @@ class UpdateRequest extends FormRequest
         return [
             'settings' => [
                 'required',
+                'array',
             ],
             'settings.*.key' => [
                 'required',
