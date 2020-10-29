@@ -107,9 +107,7 @@ class HasCorrectType implements Rule
         }
 
         throw new \Exception(
-            trans('laravel-settings::general.exceptions.unsupported_type', [
-                'type' => $this->type,
-            ]),
+            trans('laravel-settings::general.exceptions.unsupported_type', compact('type')),
         );
     }
 
