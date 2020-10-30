@@ -18,11 +18,11 @@ abstract class Controller extends BaseController
      * Get the model instance that should be binded to the route. This function
      * is needed because we can't bind model instance with dynamic model class
      * to a controller's method.
-     * 
+     *
      * @param  string|\Illuminate\Database\Eloquent\Model  $value
      * @param  string[]  $interfaces
      * @return \Illuminate\Database\Eloquent\Model
-     * 
+     *
      * @throws \Exception
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
@@ -54,7 +54,7 @@ abstract class Controller extends BaseController
 
     /**
      * Get the HasSetting instance that should be binded to the route.
-     * 
+     *
      * @param  string|int|\Illuminate\Database\Eloquent\Model  $value
      * @param  string[]  $interfaces
      * @return \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface
@@ -76,8 +76,7 @@ abstract class Controller extends BaseController
     protected function createPaginatedResponse(
         AbstractPaginator $paginator,
         string $resourceClass
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $resources = $resourceClass::collection($paginator);
 
         $paginator = $paginator->setCollection($resources->collection);

@@ -43,7 +43,7 @@ class IndexTest extends TestCase
 
     /**
      * Prepares for tests.
-     * 
+     *
      * @return array
      */
     private function prepare(): array
@@ -60,7 +60,7 @@ class IndexTest extends TestCase
 
     /**
      * Makes a request.
-     * 
+     *
      * @param  \OwowAgency\LaravelSettings\Tests\Support\Models\User  $user
      * @param  \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface  $hasSettings
      * @return \Illuminate\Testing\TestReponse
@@ -73,7 +73,7 @@ class IndexTest extends TestCase
 
     /**
      * Asserts a response.
-     * 
+     *
      * @param  \Illuminate\Testing\TestResponse  $response
      * @param  int  $status
      * @return void

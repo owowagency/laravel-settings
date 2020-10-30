@@ -9,7 +9,7 @@ if (! function_exists('validate_interfaces_implemented')) {
      * @param  object|string  $entity
      * @param  string[]  $interfaces
      * @return bool
-     * 
+     *
      * @throws \Exception
      */
     function validate_interfaces_implemented($entity, ...$interfaces): bool
