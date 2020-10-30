@@ -4,7 +4,6 @@ namespace OwowAgency\LaravelSettings\Support;
 
 use Illuminate\Support\Collection;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
-use phpDocumentor\Reflection\Types\Static_;
 
 class SettingManager
 {
