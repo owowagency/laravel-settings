@@ -9,7 +9,7 @@ trait HasSettings
 {
     /**
      * Get all of the model's settings.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function settings(): MorphMany
