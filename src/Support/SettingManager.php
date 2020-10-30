@@ -4,6 +4,7 @@ namespace OwowAgency\LaravelSettings\Support;
 
 use Illuminate\Support\Collection;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
+use phpDocumentor\Reflection\Types\Static_;
 
 class SettingManager
 {
@@ -94,6 +95,17 @@ class SettingManager
         }
 
         throw new \Exception(trans('laravel-settings::general.exceptions.conversion_failed', compact('type')));
+    }
+
+    /**
+     * Determine if a key exists in the setting configuration.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public static function exists(string $key): bool
+    {
+        return static::getConfigured()->offsetExists($key);
     }
 
     /**

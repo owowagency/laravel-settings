@@ -4,9 +4,12 @@ namespace OwowAgency\LaravelSettings\Tests\Unit\Managers;
 
 use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Support\SettingManager;
+use OwowAgency\LaravelSettings\Tests\Support\Concerns\HasSettings;
 
 class SettingManagerTest extends TestCase
 {
+    use HasSettings;
+
     /** @test */
     public function it_returns_all_minimum_properties()
     {
@@ -59,5 +62,17 @@ class SettingManagerTest extends TestCase
         $converted = SettingManager::convertToType('string', null);
 
         $this->assertNull($converted);
+    }
+
+    /** @test */
+    public function it_determines_if_settings_exists()
+    {
+        $this->assertTrue(SettingManager::exists('lang'));
+    }
+
+    /** @test */
+    public function it_determines_if_settings_dont_exists()
+    {
+        $this->assertFalse(SettingManager::exists('💩'));
     }
 }

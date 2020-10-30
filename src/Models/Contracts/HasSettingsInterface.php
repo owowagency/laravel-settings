@@ -27,7 +27,7 @@ interface HasSettingsInterface
      * @param  string  $key
      * @return mixed
      */
-    public function getSettingConfig(string $key): array;
+    public function getSettingConfig(string $key): ?array;
 
     /**
      * Get the settings value by the given key.

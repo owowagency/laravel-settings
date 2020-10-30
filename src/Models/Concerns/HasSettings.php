@@ -33,9 +33,9 @@ trait HasSettings
      * Get the settings configuration by the given key.
      *
      * @param  string  $key
-     * @return array
+     * @return array|null
      */
-    public function getSettingConfig(string $key): array
+    public function getSettingConfig(string $key): ?array
     {
         return $this->getSettings()->firstWhere('key', $key);
     }
