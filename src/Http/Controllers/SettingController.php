@@ -57,7 +57,7 @@ class SettingController extends Controller
 
         $settings = SettingManager::updateForModel(
             $model,
-            data_get($request->validated(), 'settings', [])
+            data_get($request->validated(), 'settings', []),
         );
 
         $resources = $this->settingResource::collection($settings);
