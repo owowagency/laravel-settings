@@ -59,8 +59,10 @@ abstract class Controller extends BaseController
      * @param  string[]  $interfaces
      * @return \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface
      */
-    protected function getHasSettingsInstance($value, array $interfaces = [HasSettingsInterface::class]): HasSettingsInterface
-    {
+    protected function getHasSettingsInstance(
+        $value,
+        array $interfaces = [HasSettingsInterface::class]
+    ): HasSettingsInterface {
         return $this->getModelInstance($value, $interfaces);
     }
 
