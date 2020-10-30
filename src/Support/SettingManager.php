@@ -67,7 +67,7 @@ class SettingManager
         };
 
         return new SettingCollection(
-            static::getConfigured()->map($callback)->values()
+            static::getConfigured()->map($callback)->values(),
         );
     }
 
@@ -83,7 +83,7 @@ class SettingManager
 
         return collect($settings)->map(function (Setting $setting) use ($configured) {
             return $setting->forceFill(
-                $configured[$setting->key] ?? static::getMinimumConfig()
+                $configured[$setting->key] ?? static::getMinimumConfig(),
             );
         });
     }

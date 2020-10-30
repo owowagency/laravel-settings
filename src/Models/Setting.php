@@ -53,7 +53,7 @@ class Setting extends Model
         // Before saving the model we need to remove all keys which are added to
         // the model by the setting managers. These keys are not needed in the
         // database because they're stored in the config file.
-        self::saving(function(Setting $model) {
+        self::saving(function (Setting $model) {
             $unwantedKeys = array_keys(SettingManager::getMinimumConfig());
 
             foreach ($model->getAttributes() as $key => $attribute) {

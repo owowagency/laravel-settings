@@ -12,7 +12,7 @@ class SettingCollectionTest extends TestCase
     use HasSettings;
 
     /** @test */
-    public function it_can_get_a_specific_setting_configurations()
+    public function it_can_get_a_specific_setting_configurations(): void
     {
         $user = $this->prepare();
 
@@ -23,7 +23,7 @@ class SettingCollectionTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_a_specific_setting_value()
+    public function it_can_get_a_specific_setting_value(): void
     {
         $user = $this->prepare();
 
@@ -31,7 +31,7 @@ class SettingCollectionTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_a_specific_setting_raw_value()
+    public function it_can_get_a_specific_setting_raw_value(): void
     {
         $user = $this->prepare($key = 'delete_account', $value = '365');
 

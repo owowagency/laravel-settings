@@ -13,7 +13,7 @@ class HasSettingsTest extends TestCase
     use HasSettings;
 
     /** @test */
-    public function it_can_get_settings()
+    public function it_can_get_settings(): void
     {
         $user = $this->prepare();
 

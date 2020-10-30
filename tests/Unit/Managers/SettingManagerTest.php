@@ -12,7 +12,7 @@ class SettingManagerTest extends TestCase
     use HasSettings;
 
     /** @test */
-    public function it_returns_all_minimum_properties()
+    public function it_returns_all_minimum_properties(): void
     {
         config(['laravel-settings.settings' => [
             'key' => [
@@ -34,7 +34,7 @@ class SettingManagerTest extends TestCase
     }
 
     /** @test */
-    public function it_converts_to_booleans()
+    public function it_converts_to_booleans(): void
     {
         $converted = SettingManager::convertToType('boolean', 'true');
 
@@ -42,7 +42,7 @@ class SettingManagerTest extends TestCase
     }
 
     /** @test */
-    public function it_converts_to_strings()
+    public function it_converts_to_strings(): void
     {
         $converted = SettingManager::convertToType('string', 123);
 
@@ -50,7 +50,7 @@ class SettingManagerTest extends TestCase
     }
 
     /** @test */
-    public function it_converts_to_int()
+    public function it_converts_to_int(): void
     {
         $converted = SettingManager::convertToType('int', '123');
 
@@ -58,7 +58,7 @@ class SettingManagerTest extends TestCase
     }
 
     /** @test */
-    public function it_doesnt_convert_null_objects()
+    public function it_doesnt_convert_null_objects(): void
     {
         $converted = SettingManager::convertToType('string', null);
 
@@ -66,19 +66,19 @@ class SettingManagerTest extends TestCase
     }
 
     /** @test */
-    public function it_determines_if_settings_exists()
+    public function it_determines_if_settings_exists(): void
     {
         $this->assertTrue(SettingManager::exists('lang'));
     }
 
     /** @test */
-    public function it_determines_if_settings_dont_exists()
+    public function it_determines_if_settings_dont_exists(): void
     {
         $this->assertFalse(SettingManager::exists('💩'));
     }
 
     /** @test */
-    public function it_fills_settings_with_configuration_values()
+    public function it_fills_settings_with_configuration_values(): void
     {
         $setting = Setting::factory()->create([
             'key' => 'lang',
@@ -91,7 +91,7 @@ class SettingManagerTest extends TestCase
     }
 
     /** @test */
-    public function it_fills_unknown_settings()
+    public function it_fills_unknown_settings(): void
     {
         $setting = Setting::factory()->create([
             'key' => '💩',
