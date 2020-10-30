@@ -152,7 +152,7 @@ class UpdateTest extends TestCase
 
     /**
      * Prepares for tests.
-     * 
+     *
      * @return array
      */
     private function prepare(): array
@@ -183,7 +183,7 @@ class UpdateTest extends TestCase
 
     /**
      * Asserts a response.
-     * 
+     *
      * @param  \Illuminate\Testing\TestResponse  $response
      * @param  int  $status
      * @return void

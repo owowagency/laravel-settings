@@ -129,7 +129,7 @@ class SettingManager
 
     /**
      * Retrieves the configured settings with all the required keys.
-     * 
+     *
      * @return \Illuminate\Support\Collection
      */
     public static function getConfigured(): Collection
