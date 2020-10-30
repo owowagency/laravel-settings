@@ -4,23 +4,38 @@ namespace OwowAgency\LaravelSettings\Tests\Unit\Models\Concerns;
 
 use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Tests\TestCase;
-use OwowAgency\LaravelSettings\Support\SettingCollection;
 use OwowAgency\LaravelSettings\Tests\Support\Concerns\HasSettings;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
-class HasSettingsTest extends TestCase
+class SettingCollectionTest extends TestCase
 {
     use HasSettings;
 
     /** @test */
-    public function it_can_get_settings()
+    public function it_can_get_a_specific_setting_configurations()
     {
         $user = $this->prepare();
 
-        $settings = $user->settings;
+        $settings = $user->settings->getConfig('lang');
 
-        $this->assertInstanceOf(SettingCollection::class, $settings);
+        $this->assertIsArray($settings);
         $this->assertJsonStructureSnapshot($settings);
+    }
+
+    /** @test */
+    public function it_can_get_a_specific_setting_value()
+    {
+        $user = $this->prepare();
+
+        $this->assertEquals('nl', $user->settings->getValue('lang'));
+    }
+
+    /** @test */
+    public function it_can_get_a_specific_setting_raw_value()
+    {
+        $user = $this->prepare($key = 'delete_account', $value = '365');
+
+        $this->assertSame($value, $user->settings->getRawValue($key));
     }
 
     /**

@@ -42,6 +42,29 @@ class Setting extends Model
     }
 
     /**
+     * Bootstrap the model and its traits.
+     *
+     * @return void
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        // Before saving the model we need to remove all keys which are added to
+        // the model by the setting managers. These keys are not needed in the
+        // database because they're stored in the config file.
+        self::saving(function(Setting $model) {
+            $unwantedKeys = array_keys(SettingManager::getMinimumConfig());
+
+            foreach ($model->getAttributes() as $key => $attribute) {
+                if (in_array($key, $unwantedKeys)) {
+                    unset($model->$key);
+                }
+            }
+        });
+    }
+
+    /**
      * Get the value converted to the configured type.
      *
      * @return mixed

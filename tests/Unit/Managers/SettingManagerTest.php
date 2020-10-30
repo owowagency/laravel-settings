@@ -2,6 +2,7 @@
 
 namespace OwowAgency\LaravelSettings\Tests\Unit\Managers;
 
+use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Support\SettingManager;
 use OwowAgency\LaravelSettings\Tests\Support\Concerns\HasSettings;
@@ -74,5 +75,41 @@ class SettingManagerTest extends TestCase
     public function it_determines_if_settings_dont_exists()
     {
         $this->assertFalse(SettingManager::exists('💩'));
+    }
+
+    /** @test */
+    public function it_fills_settings_with_configuration_values()
+    {
+        $setting = Setting::factory()->create([
+            'key' => 'lang',
+            'value' => 'nl',
+        ]);
+
+        $filled = SettingManager::fillWithSettingsConfig([$setting]);
+
+        $this->assertEquals('en', $filled->first()->default);
+    }
+
+    /** @test */
+    public function it_fills_unknown_settings()
+    {
+        $setting = Setting::factory()->create([
+            'key' => '💩',
+            'value' => 'What!?',
+        ]);
+
+        $filled = SettingManager::fillWithSettingsConfig([$setting])->first();
+
+        $keys = [
+            'title' => null,
+            'description' => null,
+            'type' => 'string',
+            'default' => null,
+            'nullable' => false,
+        ];
+
+        foreach ($keys as $key => $value) {
+            $this->assertEquals($value, $filled->$key);
+        }
     }
 }

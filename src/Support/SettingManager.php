@@ -3,6 +3,7 @@
 namespace OwowAgency\LaravelSettings\Support;
 
 use Illuminate\Support\Collection;
+use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
 class SettingManager
@@ -11,9 +12,9 @@ class SettingManager
      * Retrieves the settings for the specified model.
      *
      * @param  \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface  $model
-     * @return \Illuminate\Support\Collection
+     * @return \OwowAgency\LaravelSettings\Support\SettingCollection
      */
-    public static function getForModel(HasSettingsInterface $model): Collection
+    public static function getForModel(HasSettingsInterface $model): SettingCollection
     {
         $settings = $model->settings()->get();
 
@@ -47,11 +48,11 @@ class SettingManager
      * Merge the settings collection with the settings config..
      *
      * @param  \Illuminate\Support\Collection  $settings
-     * @return \Illuminate\Support\Collection
+     * @return \OwowAgency\LaravelSettings\Support\SettingCollection
      */
     public static function mergeWithSettingsConfig(
         Collection $settings
-    ): Collection {
+    ): SettingCollection {
         $callback = function ($configuration, $key) use ($settings) {
             $setting = $settings->firstWhere('key', $key);
 
@@ -65,7 +66,26 @@ class SettingManager
             return $configuration;
         };
 
-        return static::getConfigured()->map($callback)->values();
+        return new SettingCollection(
+            static::getConfigured()->map($callback)->values()
+        );
+    }
+
+    /**
+     * Fill the given setting models with the minimal configuration values.
+     *
+     * @param  array  $settings
+     * @return Collection
+     */
+    public static function fillWithSettingsConfig(array $settings): Collection
+    {
+        $configured = static::getConfigured();
+
+        return collect($settings)->map(function (Setting $setting) use ($configured) {
+            return $setting->forceFill(
+                $configured[$setting->key] ?? static::getMinimumConfig()
+            );
+        });
     }
 
     /**
@@ -114,17 +134,27 @@ class SettingManager
      */
     public static function getConfigured(): Collection
     {
-        $minimum = [
+        $minimum = static::getMinimumConfig();
+
+        return static::getRawConfigured()->map(function ($config) use ($minimum) {
+            return $config + $minimum;
+        });
+    }
+
+    /**
+     * Get the minimum configuration.
+     *
+     * @return array
+     */
+    public static function getMinimumConfig(): array
+    {
+        return [
             'title' => null,
             'description' => null,
             'type' => 'string',
             'default' => null,
             'nullable' => false,
         ];
-
-        return static::getRawConfigured()->map(function ($config) use ($minimum) {
-            return $config + $minimum;
-        });
     }
 
     /**
