@@ -4,9 +4,9 @@ networks:
   laravel-settings:
 
 services:
-  mysql_testing:
+  mysql:
     image: mysql:5.7
-    container_name: ls-mysql-testing
+    container_name: ls-mysql
     tmpfs: /var/lib/mysql
     restart: unless-stopped
     environment:

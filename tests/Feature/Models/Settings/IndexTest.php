@@ -43,7 +43,7 @@ class IndexTest extends TestCase
 
     /**
      * Prepares for tests.
-     * 
+     *
      * @return array
      */
     private function prepare(): array
@@ -62,7 +62,7 @@ class IndexTest extends TestCase
      * Mocks a policy. This is needed because the policy is not created in the
      * package, but in the project of the user itself. There we'll probably find
      * a UserPolicy.
-     * 
+     *
      * @param  bool  $allow
      * @return void
      */
@@ -70,7 +70,7 @@ class IndexTest extends TestCase
     {
         Gate::define(
             'viewSettingsOf',
-            function(User $user, $target) use ($allow) {
+            function (User $user, $target) use ($allow) {
                 return $allow;
             },
         );
@@ -78,7 +78,7 @@ class IndexTest extends TestCase
 
     /**
      * Makes a request.
-     * 
+     *
      * @param  \OwowAgency\LaravelSettings\Tests\Support\Models\User  $user
      * @param  \OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface  $hasSettings
      * @return \Illuminate\Testing\TestReponse
@@ -91,7 +91,7 @@ class IndexTest extends TestCase
 
     /**
      * Asserts a response.
-     * 
+     *
      * @param  \Illuminate\Testing\TestResponse  $response
      * @param  int  $status
      * @return void
