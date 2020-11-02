@@ -5,7 +5,7 @@ namespace OwowAgency\LaravelSettings\Http\Rules;
 use Illuminate\Support\Str;
 use OwowAgency\LaravelSettings\Support\SettingManager;
 
-class HasCorrectType extends BaseRule
+class HasCorrectType extends BaseSettingRule
 {
     /**
      * The type which is being validated by this rule.

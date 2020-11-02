@@ -1,0 +1,8 @@
+{
+    "message": "The given data was invalid.",
+    "errors": {
+        "settings.0.value": [
+            "The settings.0.value must be a string."
+        ]
+    }
+}
