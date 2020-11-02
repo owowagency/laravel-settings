@@ -23,6 +23,7 @@ class SettingManagerTest extends TestCase
             'description' => null,
             'type' => 'int',
             'default' => null,
+            'nullable' => false,
         ];
 
         $this->assertEquals($expected, $configured['key']);

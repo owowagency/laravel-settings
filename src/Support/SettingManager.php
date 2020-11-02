@@ -29,10 +29,6 @@ class SettingManager
      */
     public static function updateForModel(HasSettingsInterface $model, array $settings): Collection
     {
-        // IMPORTANT NOTE. Because Laravel doesn't only return validated values
-        // if you're using arrays in your request, you should be careful with
-        // using the values in the settings array. Only retrieve values by their
-        // key and DO NOT insert the whole array in the database.
         foreach ($settings as $setting) {
             $model->settings()->updateOrCreate(
                 ['key' => $setting['key']],
@@ -108,6 +104,7 @@ class SettingManager
             'description' => null,
             'type' => 'string',
             'default' => null,
+            'nullable' => false,
         ];
 
         return static::getRawConfigured()->map(function ($config) use ($minimum) {

@@ -19,16 +19,12 @@ class UpdateRequest extends FormRequest
         $configuration = SettingManager::getConfigured();
 
         return [
-            'settings' => [
-                'required',
-                'array',
-            ],
             'settings.*.key' => [
                 'required',
                 Rule::in($configuration->keys()),
             ],
             'settings.*.value' => [
-                'required',
+                'present',
                 new HasCorrectType($configuration),
             ],
         ];

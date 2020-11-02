@@ -25,6 +25,7 @@ return [
             'description' => 'Would you like to receive commercial emails for our marketing campaign?',
             'type' => 'bool',
             'default' => true,
+            'nullable' => false,
         ],
 
     ],

@@ -81,6 +81,49 @@ class UpdateTest extends TestCase
     }
 
     /** @test */
+    public function user_can_update_null_to_nullable_config(): void
+    {
+        [$user] = $this->prepare();
+
+        config(['laravel-settings.settings.lang.nullable' => true]);
+
+        // Allow the user to make the request.
+        $this->mockPolicy(true);
+
+        $data = [
+            'key' => 'lang',
+            'value' => null,
+        ];
+
+        $response = $this->makeRequest($user, $user, [
+            'settings' => [$data],
+        ]);
+
+        $this->assertResponse($response);
+        $this->assertDatabase($user, $data);
+    }
+
+    /** @test */
+    public function user_cannot_send_null(): void
+    {
+        [$user] = $this->prepare();
+
+        // Allow the user to make the request.
+        $this->mockPolicy(true);
+
+        $data = [
+            'key' => 'lang',
+            'value' => null,
+        ];
+
+        $response = $this->makeRequest($user, $user, [
+            'settings' => [$data],
+        ]);
+
+        $this->assertResponse($response, 422);
+    }
+
+    /** @test */
     public function user_cannot_update_settings(): void
     {
         [$user] = $this->prepare();
@@ -138,7 +181,7 @@ class UpdateTest extends TestCase
     {
         $response->assertStatus($status);
 
-        if ($status !== 200) {
+        if (! in_array($status, [200, 422])) {
             return;
         }
 
