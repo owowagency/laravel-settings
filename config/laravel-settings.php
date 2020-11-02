@@ -11,7 +11,7 @@ return [
      * The JSON resources to be used in JSON responses.
      */
     'resources' => [
-        'setting' => \OwowAgency\LaravelSettings\Resources\SettingResource::class,
+        'setting' => \OwowAgency\LaravelSettings\Http\Resources\SettingResource::class,
     ],
 
     'settings' => [

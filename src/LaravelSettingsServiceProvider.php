@@ -3,7 +3,7 @@
 namespace OwowAgency\LaravelSettings;
 
 use Illuminate\Support\ServiceProvider;
-use OwowAgency\LaravelSettings\Macros\RouteIndexSettingsMacro;
+use OwowAgency\LaravelSettings\Macros\SettingsRouteMacro;
 
 class LaravelSettingsServiceProvider extends ServiceProvider
 {
@@ -76,6 +76,6 @@ class LaravelSettingsServiceProvider extends ServiceProvider
      */
     protected function registerMacros(): void
     {
-        RouteIndexSettingsMacro::register();
+        SettingsRouteMacro::register();
     }
 }

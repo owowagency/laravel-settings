@@ -1,6 +1,6 @@
 <?php
 
-namespace OwowAgency\LaravelSettings\Controllers;
+namespace OwowAgency\LaravelSettings\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\Model;

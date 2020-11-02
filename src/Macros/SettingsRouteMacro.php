@@ -3,10 +3,10 @@
 namespace OwowAgency\LaravelSettings\Macros;
 
 use Illuminate\Support\Facades\Route;
-use OwowAgency\LaravelSettings\Controllers\SettingController;
+use OwowAgency\LaravelSettings\Http\Controllers\SettingController;
 use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
-class RouteIndexSettingsMacro
+class SettingsRouteMacro
 {
     /**
      * Register the macro.
@@ -16,7 +16,7 @@ class RouteIndexSettingsMacro
     public static function register(): void
     {
         Route::macro(
-            'indexSettings',
+            'settings',
             function (string $prefix, string $modelClass, string $postfix = 'settings') {
                 validate_interfaces_implemented($modelClass, HasSettingsInterface::class);
 
@@ -24,6 +24,11 @@ class RouteIndexSettingsMacro
                 
                 Route::get("$prefix/{{$binding}}/$postfix", [
                     'uses' => SettingController::class . '@indexForModel',
+                    'model' => $modelClass,
+                ]);
+
+                Route::patch("$prefix/{{$binding}}/$postfix", [
+                    'uses' => SettingController::class . '@update',
                     'model' => $modelClass,
                 ]);
             },
