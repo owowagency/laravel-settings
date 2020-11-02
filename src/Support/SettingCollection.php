@@ -43,4 +43,21 @@ class SettingCollection extends Collection
     {
         return data_get($this->getConfig($key), 'value');
     }
+
+    /**
+     * Dynamically access collection proxies.
+     *
+     * @param  string  $key
+     * @return mixed
+     *
+     * @throws \Exception
+     */
+    public function __get($key)
+    {
+        if (array_key_exists($key, config('laravel-settings.settings'))) {
+            return $this->getValue($key);
+        }
+
+        return parent::__get($key);
+    }
 }

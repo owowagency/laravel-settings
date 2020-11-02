@@ -30,7 +30,8 @@ php artisan vendor:publish --provider="OwowAgency\LaravelSettings\LaravelSetting
 
 ### Settings
 
-The `settings` configuration holds all the values which can be used within the application. Each setting should have a unique key. Beside the key, we use the following attributes:
+The `settings` configuration holds all the values which can be used within the application. Each setting should have a unique key. For setting the key we would recommend using a package like [Laravel Enum](https://github.com/BenSampo/laravel-enum). Beside the key, we use the following attributes:
+
 - `title` (default: `null`): here you can store a small title of the setting.
 - `description` (default: `null`): a description about the setting which you might want to display to the user.
 - `type` (default: `string`): the variable type of the setting (the type should be acceptable by the `[settype](https://www.php.net/manual/en/function.settype.php#refsect1-function.settype-description)` method).
@@ -137,4 +138,8 @@ Now, to get a certain config value from the user you can do this:
 
 ```php
 $user->settings->getValue('wants_promotion_emails');
+
+// Or
+
+$user->settings->wants_promotion_emails;
 ```

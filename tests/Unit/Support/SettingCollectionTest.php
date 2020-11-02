@@ -31,6 +31,14 @@ class SettingCollectionTest extends TestCase
     }
 
     /** @test */
+    public function it_can_get_a_specific_setting_value_via_a_helper_method(): void
+    {
+        $user = $this->prepare();
+
+        $this->assertEquals('nl', $user->settings->lang);
+    }
+
+    /** @test */
     public function it_can_get_a_specific_setting_raw_value(): void
     {
         $user = $this->prepare($key = 'delete_account', $value = '365');
