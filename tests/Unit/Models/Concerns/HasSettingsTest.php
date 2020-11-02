@@ -15,7 +15,7 @@ class HasSettingsTest extends TestCase
     /** @test */
     public function it_can_get_settings()
     {
-        $user = $this->prepare();
+        [$user] = $this->prepare();
 
         $settings = $user->getSettings();
 
@@ -26,7 +26,7 @@ class HasSettingsTest extends TestCase
     /** @test */
     public function it_can_get_a_specific_setting_configurations()
     {
-        $user = $this->prepare();
+        [$user] = $this->prepare();
 
         $settings = $user->getSettingConfig('lang');
 
@@ -37,7 +37,7 @@ class HasSettingsTest extends TestCase
     /** @test */
     public function it_can_get_a_specific_setting_value()
     {
-        $user = $this->prepare();
+        [$user] = $this->prepare();
 
         $this->assertEquals('nl', $user->getSettingValue('lang'));
     }
@@ -45,7 +45,7 @@ class HasSettingsTest extends TestCase
     /** @test */
     public function it_can_get_a_specific_setting_raw_value()
     {
-        $user = $this->prepare($key = 'delete_account', $value = '365');
+        [$user] = $this->prepare($key = 'delete_account', $value = '365');
 
         $this->assertSame($value, $user->getRawSettingValue($key));
     }
@@ -57,13 +57,13 @@ class HasSettingsTest extends TestCase
      * @param  mixed  $value
      * @return array
      */
-    private function prepare(string $key = 'lang', $value = 'nl'): HasSettingsInterface
+    private function prepare(string $key = 'lang', $value = 'nl'): array
     {
         $setting = Setting::factory()->create([
             'key' => $key,
             'value' => $value,
         ]);
 
-        return $setting->model;
+        return [$setting->model];
     }
 }
