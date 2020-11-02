@@ -1,0 +1,9 @@
+{
+    "title": "What language do you speak?",
+    "description": "We'll translate the application to your preferred language.",
+    "type": "string",
+    "default": "en",
+    "nullable": false,
+    "key": "lang",
+    "value": "nl"
+}

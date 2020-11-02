@@ -99,6 +99,12 @@ class HasCorrectType extends BaseSettingRule
      */
     public function message()
     {
+        if ($this->type === null) {
+            return trans('validation.in', [
+                'attribute' => $this->configuration->keys(),
+            ]);
+        }
+
         $key = $this->getKeyword($this->type);
 
         return trans("validation.{$key}");

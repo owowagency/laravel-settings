@@ -93,6 +93,17 @@ class SettingManager
     }
 
     /**
+     * Determine if a key exists in the setting configuration.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public static function exists(string $key): bool
+    {
+        return static::getConfigured()->offsetExists($key);
+    }
+
+    /**
      * Retrieves the configured settings with all the required keys.
      *
      * @return \Illuminate\Support\Collection

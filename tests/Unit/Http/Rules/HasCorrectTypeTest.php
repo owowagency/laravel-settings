@@ -2,6 +2,8 @@
 
 namespace OwowAgency\LaravelSettings\Tests\Unit\Http\Rules;
 
+use Mockery\MockInterface;
+use OwowAgency\LaravelSettings\Support\SettingManager;
 use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Http\Rules\HasCorrectType;
 use OwowAgency\LaravelSettings\Tests\Support\Concerns\HasSettings;
@@ -103,6 +105,16 @@ class HasCorrectTypeTest extends TestCase
         $this->assertEquals(trans('validation.string'), $rule->message());
     }
 
+    /** @test */
+    public function it_errors(): void
+    {
+        $rule = $this->mockRule('string');
+
+        $rule->passes('settings.0.value', 1);
+
+        $this->assertEquals(trans('validation.string'), $rule->message());
+    }
+
     /**
      * Mock the rule.
      *
@@ -112,17 +124,21 @@ class HasCorrectTypeTest extends TestCase
      */
     private function mockRule(string $type, $allowNullable = false): HasCorrectType
     {
-        return $this->mock(HasCorrectType::class, function ($mock) use ($type, $allowNullable) {
-            $mock->shouldAllowMockingProtectedMethods()
-                ->makePartial()
-                ->shouldReceive('getType')
-                ->andReturn($type);
+        $mock = \Mockery::mock(HasCorrectType::class, [SettingManager::getConfigured()])
+            ->shouldAllowMockingProtectedMethods()
+            ->makePartial();
 
-            if ($allowNullable) {
-                $mock->shouldReceive('canBeNullable')
-                    ->once()
-                    ->andReturn(true);
-            }
-        });
+        $mock->shouldReceive('getType')
+            ->andReturn($type);
+
+        if ($allowNullable) {
+            $mock->shouldReceive('canBeNull')
+                ->once()
+                ->andReturn(true);
+        }
+
+        $this->instance(HasCorrectType::class, $mock);
+
+        return app(HasCorrectType::class);
     }
 }

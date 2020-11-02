@@ -1,0 +1,11 @@
+{
+    "message": "The given data was invalid.",
+    "errors": {
+        "settings.0.key": [
+            "The selected settings.0.key is invalid."
+        ],
+        "settings.0.value": [
+            "The selected [\"wants_promotion_emails\",\"delete_account\",\"lang\"] is invalid."
+        ]
+    }
+}
