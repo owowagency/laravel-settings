@@ -27,7 +27,7 @@ class SettingManagerTest extends TestCase
             'description' => null,
             'type' => 'int',
             'default' => null,
-            'nullable' => false,
+            'nullable' => true,
         ];
 
         $this->assertEquals($expected, $configured['key']);
@@ -105,7 +105,7 @@ class SettingManagerTest extends TestCase
             'description' => null,
             'type' => 'string',
             'default' => null,
-            'nullable' => false,
+            'nullable' => true,
         ];
 
         foreach ($keys as $key => $value) {

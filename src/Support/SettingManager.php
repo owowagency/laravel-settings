@@ -153,7 +153,7 @@ class SettingManager
             'description' => null,
             'type' => 'string',
             'default' => null,
-            'nullable' => false,
+            'nullable' => true,
         ];
     }
 

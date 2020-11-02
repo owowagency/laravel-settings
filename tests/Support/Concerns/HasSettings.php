@@ -33,18 +33,21 @@ trait HasSettings
                 'description' => 'Would you like to receive commercial emails for our marketing campaign?',
                 'type' => 'bool',
                 'default' => false,
+                'nullable' => false,
             ],
             'delete_account' => [
                 'title' => 'Delete my account after inactivity',
                 'description' => 'If I don\'t login in for a certain amount of days, you may delete my account.',
                 'type' => 'int',
                 'default' => 365,
+                'nullable' => true,
             ],
             'lang' => [
                 'title' => 'What language do you speak?',
                 'description' => 'We\'ll translate the application to your preferred language.',
                 'type' => 'string',
                 'default' => 'en',
+                'nullable' => false,
             ],
         ]);
     }
