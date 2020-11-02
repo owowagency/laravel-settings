@@ -4,6 +4,7 @@
         "description": "Would you like to receive commercial emails for our marketing campaign?",
         "type": "bool",
         "default": false,
+        "nullable": false,
         "key": "wants_promotion_emails",
         "value": false
     },
@@ -12,6 +13,7 @@
         "description": "If I don't login in for a certain amount of days, you may delete my account.",
         "type": "int",
         "default": 365,
+        "nullable": true,
         "key": "delete_account",
         "value": 100
     },
@@ -20,6 +22,7 @@
         "description": "We'll translate the application to your preferred language.",
         "type": "string",
         "default": "en",
+        "nullable": false,
         "key": "lang",
         "value": "nl"
     }

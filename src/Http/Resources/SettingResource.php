@@ -20,6 +20,7 @@ class SettingResource extends JsonResource
             'description' => $this->resource['description'],
             'type' => $this->resource['type'],
             'default' => $this->resource['default'],
+            'nullable' => $this->resource['nullable'],
             'key' => $this->resource['key'],
             'value' => SettingManager::convertToType(
                 $this->resource['type'],
