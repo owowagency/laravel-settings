@@ -1,5 +1,10 @@
 # Laravel Settings
 
+<p align="center">
+<a href="https://packagist.org/packages/owowagency/laravel-settings"><img src="https://img.shields.io/packagist/dt/owowagency/laravel-settings" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/owowagency/laravel-settings"><img src="https://img.shields.io/packagist/v/owowagency/laravel-settings" alt="Latest Stable Version"></a>
+</p>
+
 A package of settings features for the Laravel framework.
 
 # Installation
