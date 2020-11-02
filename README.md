@@ -34,7 +34,7 @@ The `settings` configuration holds all the values which can be used within the a
 
 - `title` (default: `null`): here you can store a small title of the setting.
 - `description` (default: `null`): a description about the setting which you might want to display to the user.
-- `type` (default: `string`): the variable type of the setting (the type should be acceptable by the `[settype](https://www.php.net/manual/en/function.settype.php#refsect1-function.settype-description)` method).
+- `type` (default: `string`): the variable type of the setting (the type should be acceptable by the [`settype()`](https://www.php.net/manual/en/function.settype.php#refsect1-function.settype-description) method).
 - `default` (default: `null`): the default value which will be used if the user hasn't stored the value in the database yet.
 - `nullable` (default: `true`): indicates if this setting may have the `null` value. 
 
