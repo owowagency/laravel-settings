@@ -6,7 +6,6 @@ use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Support\SettingCollection;
 use OwowAgency\LaravelSettings\Tests\Support\Concerns\HasSettings;
-use OwowAgency\LaravelSettings\Models\Contracts\HasSettingsInterface;
 
 class HasSettingsTest extends TestCase
 {
@@ -15,7 +14,7 @@ class HasSettingsTest extends TestCase
     /** @test */
     public function it_can_get_settings(): void
     {
-        $user = $this->prepare();
+        [$user] = $this->prepare();
 
         $settings = $user->settings;
 
@@ -30,13 +29,13 @@ class HasSettingsTest extends TestCase
      * @param  mixed  $value
      * @return array
      */
-    private function prepare(string $key = 'lang', $value = 'nl'): HasSettingsInterface
+    private function prepare(string $key = 'lang', $value = 'nl'): array
     {
         $setting = Setting::factory()->create([
             'key' => $key,
             'value' => $value,
         ]);
 
-        return $setting->model;
+        return [$setting->model];
     }
 }
