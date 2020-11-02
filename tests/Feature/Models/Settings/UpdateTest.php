@@ -181,7 +181,7 @@ class UpdateTest extends TestCase
     {
         $response->assertStatus($status);
 
-        if ($status !== 200) {
+        if (! in_array($status, [200, 422])) {
             return;
         }
 

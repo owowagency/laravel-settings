@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 use OwowAgency\LaravelSettings\Support\SettingManager;
 use Illuminate\Validation\Concerns\ValidatesAttributes;
 
-abstract class BaseRule implements Rule
+abstract class BaseSettingRule implements Rule
 {
     use ValidatesAttributes;
 
@@ -19,7 +19,7 @@ abstract class BaseRule implements Rule
     protected $configuration;
 
     /**
-     * HasCorrectType constructor.
+     * BaseSettingRule constructor.
      *
      * @param  \Illuminate\Support\Collection|null  $configuration
      */
