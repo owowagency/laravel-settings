@@ -71,7 +71,7 @@ class SettingManager
      * Fill the given setting models with the minimal configuration values.
      *
      * @param  array  $settings
-     * @return Collection
+     * @return \Illuminate\Support\Collection
      */
     public static function fillWithSettingsConfig(array $settings): Collection
     {
