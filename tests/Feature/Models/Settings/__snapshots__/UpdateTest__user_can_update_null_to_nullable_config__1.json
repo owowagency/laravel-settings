@@ -1,5 +1,5 @@
-[
-    {
+{
+    "wants_promotion_emails": {
         "title": "Receive commercial emails",
         "description": "Would you like to receive commercial emails for our marketing campaign?",
         "type": "bool",
@@ -8,7 +8,7 @@
         "key": "wants_promotion_emails",
         "value": false
     },
-    {
+    "delete_account": {
         "title": "Delete my account after inactivity",
         "description": "If I don't login in for a certain amount of days, you may delete my account.",
         "type": "int",
@@ -17,7 +17,7 @@
         "key": "delete_account",
         "value": 365
     },
-    {
+    "lang": {
         "title": "What language do you speak?",
         "description": "We'll translate the application to your preferred language.",
         "type": "string",
@@ -25,5 +25,25 @@
         "nullable": true,
         "key": "lang",
         "value": null
+    },
+    "app_settings": {
+        "dark_mode": {
+            "title": "Enable dark mode",
+            "description": "Do you want to see this app in dark mode?",
+            "type": "bool",
+            "default": false,
+            "nullable": false,
+            "key": "dark_mode",
+            "value": false
+        },
+        "primary_color": {
+            "title": "The primary color",
+            "description": "The app will change into this color",
+            "type": "string",
+            "default": "#3388ff",
+            "nullable": true,
+            "key": "primary_color",
+            "value": "#3388ff"
+        }
     }
-]
+}

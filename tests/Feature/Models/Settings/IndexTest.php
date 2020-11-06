@@ -51,8 +51,9 @@ class IndexTest extends TestCase
         Route::settings('users', User::class);
 
         $setting = Setting::factory()->create([
-            'key' => 'lang',
-            'value' => 'nl',
+            'group' => 'app_settings',
+            'key' => 'dark_mode',
+            'value' => true,
         ]);
 
         return [$setting->model, $setting];

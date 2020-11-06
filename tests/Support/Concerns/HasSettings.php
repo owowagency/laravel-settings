@@ -49,6 +49,22 @@ trait HasSettings
                 'default' => 'en',
                 'nullable' => false,
             ],
+            'app_settings' => [
+                'dark_mode' => [
+                    'title' => 'Enable dark mode',
+                    'description' => 'Do you want to see this app in dark mode?',
+                    'type' => 'bool',
+                    'default' => false,
+                    'nullable' => false,
+                ],
+                'primary_color' => [
+                    'title' => 'The primary color',
+                    'description' => 'The app will change into this color',
+                    'type' => 'string',
+                    'default' => '#3388ff',
+                    'nullable' => true,
+                ],
+            ],
         ]);
     }
 }

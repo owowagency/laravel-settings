@@ -44,16 +44,27 @@ class UpdateTest extends TestCase
         $this->mockPolicy(true);
 
         $data = [
-            'key' => 'delete_account',
-            'value' => 100,
+            [
+                'key' => 'delete_account',
+                'value' => 100,
+            ],
+            [
+                'key' => 'dark_mode',
+                'value' => true,
+                'group' => 'app_settings',
+            ],
         ];
 
+
         $response = $this->makeRequest($user, $user, [
-            'settings' => [$data],
+            'settings' => $data,
         ]);
 
         $this->assertResponse($response);
-        $this->assertDatabase($user, $data);
+
+        foreach ($data as $attributes) {
+            $this->assertDatabase($user, $attributes);
+        }
     }
 
     /** @test */
@@ -76,6 +87,46 @@ class UpdateTest extends TestCase
 
         $this->assertResponse($response, 422);
         $this->assertDatabase($user, ['value' => 'nl'] + $data);
+    }
+
+    /** @test */
+    public function user_must_provide_existing_groups(): void
+    {
+        [$user] = $this->prepare();
+
+        $this->mockPolicy(true);
+
+        $data = [
+            'group' => 'unknown',
+            'key' => 'dark_mode',
+            'value' => true,
+        ];
+
+        $response = $this->makeRequest($user, $user, [
+            'settings' => [$data],
+        ]);
+
+        $this->assertResponse($response, 422);
+    }
+
+    /** @test */
+    public function user_must_provide_matching_keys_with_groups(): void
+    {
+        [$user] = $this->prepare();
+
+        $this->mockPolicy(true);
+
+        $data = [
+            'group' => 'app_settings',
+            'key' => 'wants_promotion_emails',
+            'value' => true,
+        ];
+
+        $response = $this->makeRequest($user, $user, [
+            'settings' => [$data],
+        ]);
+
+        $this->assertResponse($response, 422);
     }
 
     /** @test */
