@@ -15,6 +15,8 @@ class HasSettingGroupKey extends BaseSettingRule
      */
     public function passes($attribute, $value)
     {
+        $this->setData($attribute, $value);
+
         return SettingManager::groupExists($value);
     }
 
@@ -25,6 +27,8 @@ class HasSettingGroupKey extends BaseSettingRule
      */
     public function message()
     {
-        return trans('validation.exists');
+        return trans('validation.exists', [
+            'attribute' => $this->attribute,
+        ]);
     }
 }

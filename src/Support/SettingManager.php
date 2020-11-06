@@ -267,4 +267,20 @@ class SettingManager
     {
         return collect(config('laravel-settings.settings', []));
     }
+
+    /**
+     * Get the configured value for the given config type.
+     *
+     * @param  string  $key
+     * @param  string  $type
+     * @param  mixed|null  $default
+     * @return mixed
+     */
+    public static function getConfiguredValue(string $key, string $type, $default = null)
+    {
+        // TODO create tests for this method.
+        $config = data_get(static::getConfigured(), $key);
+
+        return data_get($config, $type, $default);
+    }
 }

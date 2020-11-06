@@ -2,7 +2,6 @@
 
 namespace OwowAgency\LaravelSettings\Http\Rules;
 
-use Illuminate\Support\Collection;
 use Illuminate\Contracts\Validation\Rule;
 use OwowAgency\LaravelSettings\Support\SettingManager;
 use Illuminate\Validation\Concerns\ValidatesAttributes;
@@ -10,13 +9,6 @@ use Illuminate\Validation\Concerns\ValidatesAttributes;
 abstract class BaseSettingRule implements Rule
 {
     use ValidatesAttributes;
-
-    /**
-     * The collection containing all configuration values.
-     *
-     * @var \Illuminate\Support\Collection
-     */
-    protected $configuration;
 
     /**
      * The attribute which we are validating the value of.
@@ -31,16 +23,6 @@ abstract class BaseSettingRule implements Rule
      * @var mixed
      */
     protected $value;
-
-    /**
-     * BaseSettingRule constructor.
-     *
-     * @param  \Illuminate\Support\Collection|null  $configuration
-     */
-    public function __construct(?Collection $configuration = null)
-    {
-        $this->configuration = $configuration ?? SettingManager::getConfigured();
-    }
 
     /**
      * Set the validation data.
@@ -70,11 +52,11 @@ abstract class BaseSettingRule implements Rule
      * Get the value of a certain key from the configuration based on the key
      * which can be found in the request.
      *
-     * @param  string  $key
+     * @param  string  $typeKey
      * @param  mixed  $default
      * @return mixed
      */
-    protected function getConfigValue(string $key, $default = null)
+    protected function getConfigValue(string $typeKey, $default = null)
     {
         $configKey = $this->buildConfigKey(
             request(str_replace(['value', 'group'], 'key', $this->attribute))
@@ -84,9 +66,7 @@ abstract class BaseSettingRule implements Rule
             return $default;
         }
 
-        $config = data_get($this->configuration, $configKey);
-
-        return data_get($config, $key, $default);
+        return SettingManager::getConfiguredValue($configKey, $typeKey, $default);
     }
 
     /**
