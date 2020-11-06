@@ -15,6 +15,10 @@ class SettingResource extends JsonResource
      */
     public function toArray($request): array
     {
+        if (SettingManager::isGroup($this->resource)) {
+            return $this->collection($this->resource)->toArray($request);
+        }
+
         return [
             'title' => $this->resource['title'],
             'description' => $this->resource['description'],

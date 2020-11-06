@@ -19,6 +19,20 @@ abstract class BaseSettingRule implements Rule
     protected $configuration;
 
     /**
+     * The attribute which we are validating the value of.
+     *
+     * @var string
+     */
+    protected $attribute;
+
+    /**
+     * The value which is being validated.
+     *
+     * @var mixed
+     */
+    protected $value;
+
+    /**
      * BaseSettingRule constructor.
      *
      * @param  \Illuminate\Support\Collection|null  $configuration
@@ -29,34 +43,96 @@ abstract class BaseSettingRule implements Rule
     }
 
     /**
+     * Set the validation data.
+     *
+     * @param  string  $attribute
+     * @param  mixed  $value
+     * @return void
+     */
+    protected function setData(string $attribute, $value): void
+    {
+        $this->attribute = $attribute;
+        $this->value = $value;
+    }
+
+    /**
      * Get the type from the configuration based on the key which can be found
      * in the request.
      *
-     * @param  string  $attribute
      * @return string
      */
-    protected function getType(string $attribute): ?string
+    protected function getType(): ?string
     {
-        return $this->getConfigValue($attribute, 'type');
+        return $this->getConfigValue('type');
     }
 
     /**
      * Get the value of a certain key from the configuration based on the key
      * which can be found in the request.
      *
-     * @param  string  $attribute
      * @param  string  $key
      * @param  mixed  $default
      * @return mixed
      */
-    protected function getConfigValue(string $attribute, string $key, $default = null)
+    protected function getConfigValue(string $key, $default = null)
     {
-        $configKey = request(str_replace('value', 'key', $attribute));
+        $configKey = $this->buildConfigKey(
+            request(str_replace(['value', 'group'], 'key', $this->attribute))
+        );
 
-        if (! $this->configuration->offsetExists($configKey)) {
+        if (! SettingManager::exists($configKey)) {
             return $default;
         }
 
-        return data_get($this->configuration[$configKey], $key, $default);
+        $config = data_get($this->configuration, $configKey);
+
+        return data_get($config, $key, $default);
+    }
+
+    /**
+     * Build the configuration key so that it is always prepended with the group
+     * key if needed.
+     *
+     * @param  string  $key
+     * @return string
+     */
+    protected function buildConfigKey(string $key): string
+    {
+        if (! $this->belongsToGroup()) {
+            return $key;
+        }
+
+        return sprintf('%s.%s', $this->getGroupKey(), $key);
+    }
+
+    /**
+     * Determine if the attribute which needs to be validated is associated with
+     * a group setting.
+     *
+     * @return bool
+     */
+    protected function belongsToGroup(): bool
+    {
+        return request()->has($this->getGroupAttributeName());
+    }
+
+    /**
+     * Get the group key value from the request.
+     *
+     * @return string
+     */
+    protected function getGroupKey(): string
+    {
+        return request()->input($this->getGroupAttributeName());
+    }
+
+    /**
+     * Get the attribute name for the group key.
+     *
+     * @return string
+     */
+    protected function getGroupAttributeName(): string
+    {
+        return str_replace(['value', 'key'], 'group', $this->attribute);
     }
 }

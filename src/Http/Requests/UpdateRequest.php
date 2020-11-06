@@ -2,10 +2,11 @@
 
 namespace OwowAgency\LaravelSettings\Http\Requests;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 use OwowAgency\LaravelSettings\Support\SettingManager;
 use OwowAgency\LaravelSettings\Http\Rules\HasCorrectType;
+use OwowAgency\LaravelSettings\Http\Rules\SettingKeyExists;
+use OwowAgency\LaravelSettings\Http\Rules\HasSettingGroupKey;
 
 class UpdateRequest extends FormRequest
 {
@@ -21,11 +22,14 @@ class UpdateRequest extends FormRequest
         return [
             'settings.*.key' => [
                 'required',
-                Rule::in($configuration->keys()),
+                new SettingKeyExists,
             ],
             'settings.*.value' => [
                 'present',
                 new HasCorrectType($configuration),
+            ],
+            'settings.*.group' => [
+                new HasSettingGroupKey($configuration),
             ],
         ];
     }

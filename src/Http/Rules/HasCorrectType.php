@@ -23,28 +23,29 @@ class HasCorrectType extends BaseSettingRule
      */
     public function passes($attribute, $value)
     {
-        if (is_null($value) && $this->canBeNull($attribute)) {
+        $this->setData($attribute, $value);
+
+        if (is_null($this->value) && $this->canBeNull()) {
             return true;
         }
 
-        $this->type = $this->getType($attribute);
+        $this->type = $this->getType();
 
         if ($this->type === null) {
             return false;
         }
 
-        return $this->validate($attribute, $value);
+        return $this->validate();
     }
 
     /**
      * Determine if the value of this rule can be nullable.
      *
-     * @param  string  $attribute
      * @return bool
      */
-    protected function canBeNull(string $attribute): bool
+    protected function canBeNull(): bool
     {
-        $nullable = $this->getConfigValue($attribute, 'nullable', false);
+        $nullable = $this->getConfigValue('nullable', false);
 
         return SettingManager::convertToType('bool', $nullable);
     }
@@ -52,18 +53,16 @@ class HasCorrectType extends BaseSettingRule
     /**
      * Execute the correct validation rule based on the given type.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
      * @return bool
      */
-    private function validate(string $attribute, $value): bool
+    private function validate(): bool
     {
         $method = sprintf(
             'validate%s',
             Str::ucfirst($this->getKeyword($this->type))
         );
 
-        return $this->$method($attribute, $value);
+        return $this->$method($this->attribute, $this->value);
     }
 
     /**
@@ -99,14 +98,12 @@ class HasCorrectType extends BaseSettingRule
      */
     public function message()
     {
-        if ($this->type === null) {
-            return trans('validation.in', [
-                'attribute' => $this->configuration->keys(),
-            ]);
-        }
+        $key = $this->type === null
+            ? 'in'
+            : $this->getKeyword($this->type);
 
-        $key = $this->getKeyword($this->type);
-
-        return trans("validation.{$key}");
+        return trans("validation.{$key}", [
+            'attribute' => $this->attribute,
+        ]);
     }
 }

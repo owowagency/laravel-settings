@@ -28,6 +28,14 @@ return [
             'nullable' => false,
         ],
 
+        /**
+         * This is a notification group. All notifications which are stored in
+         * this group will be grouped.
+         */
+        'user_settings' => [
+
+        ],
+
     ],
 
 ];

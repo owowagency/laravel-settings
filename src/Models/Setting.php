@@ -3,6 +3,7 @@
 namespace OwowAgency\LaravelSettings\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use OwowAgency\LaravelSettings\Support\SettingManager;
@@ -18,7 +19,7 @@ class Setting extends Model
      * @var array
      */
     protected $fillable = [
-        'key', 'value',
+        'key', 'value', 'group',
     ];
     
     /**
@@ -76,6 +77,18 @@ class Setting extends Model
         $type = data_get($configuration, 'type');
 
         return SettingManager::convertToType($type, $this->value);
+    }
+
+    /**
+     * Scope a query to only include settings that are in the specified group(s).
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param  string[]|string  $groups
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfGroup(Builder $query, ...$groups): Builder
+    {
+        return $query->whereIn($this->getTable() . '.group', $groups);
     }
 
     /**

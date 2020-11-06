@@ -19,6 +19,10 @@ class HasSettingsTest extends TestCase
         $settings = $user->settings;
 
         $this->assertInstanceOf(SettingCollection::class, $settings);
+
+        // Note that the settings are not converted to their associated type.
+        // This happens in the resource. So a boolean value is now still the raw
+        // value for dark_mode is now still "1", which is correct.
         $this->assertJsonStructureSnapshot($settings);
     }
 
@@ -34,6 +38,13 @@ class HasSettingsTest extends TestCase
         $setting = Setting::factory()->create([
             'key' => $key,
             'value' => $value,
+        ]);
+
+        Setting::factory()->create([
+            'group' => 'app_settings',
+            'key' => 'dark_mode',
+            'value' => true,
+            'model_id' => $setting->model_id
         ]);
 
         return [$setting->model];
