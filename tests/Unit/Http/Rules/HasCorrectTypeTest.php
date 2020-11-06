@@ -116,7 +116,7 @@ class HasCorrectTypeTest extends TestCase
      */
     private function mockRule(string $type, $allowNullable = false): HasCorrectType
     {
-        $mock = \Mockery::mock(HasCorrectType::class, [SettingManager::getConfigured()])
+        $mock = \Mockery::mock(HasCorrectType::class)
             ->shouldAllowMockingProtectedMethods()
             ->makePartial();
 
