@@ -6,7 +6,7 @@ jobs:
   laravel-checks:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, 'SKIP ACTIONS')"
-    container: thomasowow/laravel-php:7.4
+    container: thomasowow/laravel-php:8.0
 
     services:
       mysql:
