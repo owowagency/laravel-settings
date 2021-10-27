@@ -5,10 +5,10 @@ namespace OwowAgency\LaravelSettings\Tests;
 use OwowAgency\Snapshots\MatchesSnapshots;
 use OwowAgency\LaravelTestResponse\TestResponse;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithTime;
 use OwowAgency\LaravelSettings\LaravelSettingsServiceProvider;
 use OwowAgency\LaravelSettings\Tests\Support\Concerns\HasSettings;
+use OwowAgency\LaravelSettings\Tests\Support\Concerns\RefreshDatabase;
 
 abstract class TestCase extends BaseTestCase
 {

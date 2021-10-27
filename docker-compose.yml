@@ -17,7 +17,7 @@ services:
       - laravel-settings
 
   php:
-    image: thomasowow/laravel-php:7.4
+    image: thomasowow/laravel-php:8.0
     container_name: ls-php
     tty: true
     volumes:
