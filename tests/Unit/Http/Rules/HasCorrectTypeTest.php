@@ -100,19 +100,11 @@ class HasCorrectTypeTest extends TestCase
     {
         $rule = $this->mockRule('string');
 
-        $rule->passes('settings.0.value', 1);
+        $rule->passes($attribute = 'settings.0.value', 1);
 
-        $this->assertEquals(trans('validation.string'), $rule->message());
-    }
+        $message = trans('validation.string', compact('attribute'));
 
-    /** @test */
-    public function it_errors(): void
-    {
-        $rule = $this->mockRule('string');
-
-        $rule->passes('settings.0.value', 1);
-
-        $this->assertEquals(trans('validation.string'), $rule->message());
+        $this->assertEquals($message, $rule->message());
     }
 
     /**
@@ -124,7 +116,7 @@ class HasCorrectTypeTest extends TestCase
      */
     private function mockRule(string $type, $allowNullable = false): HasCorrectType
     {
-        $mock = \Mockery::mock(HasCorrectType::class, [SettingManager::getConfigured()])
+        $mock = \Mockery::mock(HasCorrectType::class)
             ->shouldAllowMockingProtectedMethods()
             ->makePartial();
 

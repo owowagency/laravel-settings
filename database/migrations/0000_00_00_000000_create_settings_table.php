@@ -17,10 +17,11 @@ class CreateSettingsTable extends Migration
             $table->id();
             $table->nullableMorphs('model');
             $table->string('key');
+            $table->string('group')->nullable();
             $table->text('value')->nullable();
             $table->timestamps();
 
-            $table->unique(['model_id', 'model_type', 'key']);
+            $table->unique(['model_id', 'model_type', 'key', 'group']);
         });
     }
 

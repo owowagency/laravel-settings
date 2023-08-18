@@ -2,6 +2,7 @@
 
 namespace OwowAgency\LaravelSettings\Tests\Unit\Managers;
 
+use Illuminate\Support\Arr;
 use OwowAgency\LaravelSettings\Models\Setting;
 use OwowAgency\LaravelSettings\Tests\TestCase;
 use OwowAgency\LaravelSettings\Support\SettingManager;
@@ -31,6 +32,22 @@ class SettingManagerTest extends TestCase
         ];
 
         $this->assertEquals($expected, $configured['key']);
+    }
+
+    /** @test */
+    public function it_doesnt_add_minimum_properties_to_groups()
+    {
+        $configured = SettingManager::getConfigured();
+
+        $keys = [
+            'app_settings.title',
+            'app_settings.description',
+            'app_settings.type',
+            'app_settings.default',
+            'app_settings.nullable',
+        ];
+
+        $this->assertFalse(Arr::has($configured, $keys));
     }
 
     /** @test */
@@ -72,9 +89,15 @@ class SettingManagerTest extends TestCase
     }
 
     /** @test */
+    public function it_determines_if_settings_exists_in_groups(): void
+    {
+        $this->assertTrue(SettingManager::exists('app_settings.dark_mode'));
+    }
+
+    /** @test */
     public function it_determines_if_settings_dont_exists(): void
     {
-        $this->assertFalse(SettingManager::exists('💩'));
+        $this->assertFalse(SettingManager::exists('lang.title'));
     }
 
     /** @test */
