@@ -5,7 +5,7 @@ networks:
 
 services:
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
     container_name: ls-mysql
     tmpfs: /var/lib/mysql
     restart: unless-stopped
@@ -17,7 +17,7 @@ services:
       - laravel-settings
 
   php:
-    image: thomasowow/laravel-php:8.0
+    image: owow/laravel-php:8.2
     container_name: ls-php
     tty: true
     volumes:
